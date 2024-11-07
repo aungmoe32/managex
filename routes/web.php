@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return User::whereHas("posts", function (Builder $query) {
+        $query->whereHas("comments", function (Builder $query) {
+            $query->where('title', 'like', '%rem%');
+        });
+    })->get();
+    //  return view('welcome');
 });
