@@ -1,5 +1,7 @@
 <?php
 
+use App\Constants\Major;
+use App\Constants\Term;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('semesters', function (Blueprint $table) {
             $table->id();
-            $table->enum('major', ["IT", "CIVIL", "EP"]);
+            $table->enum('major', Major::getAllMajors());
             $table->integer('year');
-            $table->enum('term', ["First", "Second"]);
+            $table->enum('term', Term::getAllTerms());
             $table->timestamps();
         });
     }
