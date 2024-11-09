@@ -20,6 +20,6 @@ Route::get('/', function () {
         $query->whereHas("comments", function (Builder $query) {
             $query->where('title', 'like', '%rem%');
         });
-    })->get();
+    })->paginate(1);
     //  return view('welcome');
 });
