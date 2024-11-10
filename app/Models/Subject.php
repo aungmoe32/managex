@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Subject extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'code', 'color', 'semester_id'];
 
 
     public function semester(): BelongsTo

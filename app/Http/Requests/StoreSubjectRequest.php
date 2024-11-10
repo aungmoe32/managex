@@ -13,7 +13,6 @@ class StoreSubjectRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,14 +21,10 @@ class StoreSubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
-        $rules = [
-            'data' => 'required|array',
-            'data.attributes' => 'required|array',
-            'data.attributes.title' => 'required|string',
-            'data.attributes.description' => 'required|string',
-            'data.attributes.status' => 'required|string|in:A,C,H,X',
-        ];
+            'name' => 'required|string',
+            'code' => 'required|string',
+            'color' => 'required|string',
+            'semester_id' => 'required|integer|exists:semesters,id',
         ];
     }
 }
