@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTeacherRequest;
-use App\Http\Requests\UpdateTeacherRequest;
+use App\Models\Subject;
 use App\Models\Teacher;
+use App\Constants\Constant;
+use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use App\Http\Resources\SubjectResource;
 
 class TeacherController extends Controller
 {
@@ -13,21 +17,20 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $teachers = QueryBuilder::for(Teacher::class)
+            ->allowedFilters([AllowedFilter::exact('experience'), 'subjects.name', AllowedFilter::exact('subjects.semester.major')])
+            ->allowedIncludes(['subjects', 'subjects.semester'])
+            ->with('user')
+            ->paginate(Constant::PageSize);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        // return SubjectResource::collection($subjects);
+        return $teachers;
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTeacherRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -41,17 +44,9 @@ class TeacherController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Teacher $teacher)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTeacherRequest $request, Teacher $teacher)
+    public function update(Request $request, Teacher $teacher)
     {
         //
     }
