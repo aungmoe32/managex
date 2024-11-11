@@ -19,10 +19,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->create();
 
-        // $users = User::all();
-        // Teacher::factory(5)->recycle($users)->create();
+        $users = User::all();
+        Teacher::factory(5)->recycle($users)->create();
+
+        $this->call(SemesterSeeder::class);
+        $semesters = Semester::all();
+        Subject::factory(10)->recycle($semesters)->create();
 
         $subjects = Subject::all();
         Teacher::all()->each(function ($teacher) use ($subjects) {
@@ -31,9 +35,5 @@ class DatabaseSeeder extends Seeder
                 $subjects->random(1)->pluck('id')->toArray()
             );
         });
-
-        // $this->call(SemesterSeeder::class);
-        // $semesters = Semester::all();
-        // Subject::factory(10)->recycle($semesters)->create();
     }
 }
