@@ -8,6 +8,7 @@ use App\Models\Semester;
 use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\User;
+use App\Permissions\Roles;
 use Database\Factories\SubjectFactory;
 use Database\Factories\TeacherFactory;
 use Illuminate\Database\Seeder;
@@ -19,9 +20,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(PermissionSeeder::class);
         \App\Models\User::factory(10)->create();
 
         $users = User::all();
+        $users->each(function ($user) {
+            $user->assignRole(Roles::STUDENT);
+        });
         Teacher::factory(5)->recycle($users)->create();
 
         $this->call(SemesterSeeder::class);

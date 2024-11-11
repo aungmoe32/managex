@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Profile;
 use App\Models\User;
+use App\Permissions\Permissions;
 use Illuminate\Auth\Access\Response;
 
 class ProfilePolicy
@@ -37,7 +38,10 @@ class ProfilePolicy
      */
     public function update(User $user, Profile $profile): bool
     {
-        //
+        if ($user->hasPermissionTo(Permissions::UpdateOwnProfile)) {
+            return $user->id == $profile->user_id;
+        }
+        return false;
     }
 
     /**

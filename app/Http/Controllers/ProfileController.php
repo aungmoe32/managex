@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Profile;
+use App\Traits\ApiResponses;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
+    use ApiResponses;
     /**
      * Display a listing of the resource.
      */
@@ -35,10 +38,7 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Profile $profile)
-    {
-        //
-    }
+    public function show() {}
 
     /**
      * Show the form for editing the specified resource.
@@ -51,9 +51,19 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProfileRequest $request, Profile $profile)
+    public function update(UpdateProfileRequest $request)
     {
-        //
+        if (auth()->user()->can('update', auth()->user()->profile)) {
+            $data = [];
+            if ($request->has('bio')) $data['bio'] = $request->input('bio');
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('public/images');
+                $data['image_file'] = $path;
+            }
+            auth()->user()->profile->update($data);
+            return auth()->user();
+        }
+        return $this->notAuthorized('You are not authorized to update that resource');
     }
 
     /**

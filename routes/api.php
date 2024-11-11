@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
@@ -30,4 +31,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('subjects', SubjectController::class);
     Route::apiResource('teachers', TeacherController::class);
+    Route::post('profile', [ProfileController::class, 'update']);
+    Route::get('profile', [ProfileController::class, 'show']);
 });

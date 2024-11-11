@@ -11,7 +11,7 @@ class UpdateProfileRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'bio' => 'sometimes|string',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048'
         ];
     }
 }
