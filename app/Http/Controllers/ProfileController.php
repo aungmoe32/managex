@@ -6,7 +6,9 @@ use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Profile;
 use App\Traits\ApiResponses;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -38,7 +40,13 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show() {}
+
+    public function show()
+    {
+        $user = auth()->user();
+        $user->profile->image_url = $user->profile->getFirstMedia('profile')->getUrl();
+        return $user;
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -53,15 +61,18 @@ class ProfileController extends Controller
      */
     public function update(UpdateProfileRequest $request)
     {
-        if (auth()->user()->can('update', auth()->user()->profile)) {
+        $user = Auth::user();
+        if ($user->can('update', $user->profile)) {
             $data = [];
             if ($request->has('bio')) $data['bio'] = $request->input('bio');
             if ($request->hasFile('image')) {
-                $path = $request->file('image')->store('public/images');
-                $data['image_file'] = $path;
+                // dd(url($user->profile->image_file));
+                $user->profile
+                    ->addMediaFromRequest('image')
+                    ->toMediaCollection('profile');
             }
-            auth()->user()->profile->update($data);
-            return auth()->user();
+            $user->profile->update($data);
+            return $user;
         }
         return $this->notAuthorized('You are not authorized to update that resource');
     }
