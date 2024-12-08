@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
-use Laravel\Fortify\Contracts\{LoginResponse, RegisterResponse};
+use Laravel\Fortify\Contracts\{LoginResponse, RegisterResponse, PasswordResetResponse};
 use App\Models\User;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -22,6 +22,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+
         $this->app->instance(LoginResponse::class, new class implements LoginResponse {
             public function toResponse($request)
             {
@@ -48,6 +49,21 @@ class FortifyServiceProvider extends ServiceProvider
                     : redirect()->intended(Fortify::redirects('register'));
             }
         });
+        // response after reset success
+        $this->app->singleton(
+            PasswordResetResponse::class,
+            function ($app, $status) {
+                return new class implements PasswordResetResponse {
+                    public function toResponse($request)
+                    {
+                        // TODO: need to revoke all tokens of user
+                        return response()->json([
+                            "message" => "Password reset successfully.",
+                        ], 200);
+                    }
+                };
+            }
+        );
     }
 
     /**
