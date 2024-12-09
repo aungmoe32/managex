@@ -21,7 +21,15 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
+    public function index()
+    {
+        $posts = QueryBuilder::for(Post::class)
+            ->allowedFilters(['title', AllowedFilter::exact('category_id'), 'category.name', 'comments.content'])
+            ->allowedIncludes(['category', 'comments'])
+            ->paginate(Constant::PageSize);
+
+        return $posts;
+    }
 
     /**
      * Store a newly created resource in storage.
