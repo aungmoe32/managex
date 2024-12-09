@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Constants\Role as ConstantsRole;
 use Illuminate\Database\Seeder;
 use App\Permissions\Permissions;
 use App\Permissions\Roles;
@@ -21,10 +22,22 @@ class PermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => Permissions::UpdateOwnProfile]);
+        $mUserPers = Permissions::userPermissions();
+        $userPers = array_map(function ($per) {
+            return Permission::create(['name' => $per]);
+        }, $mUserPers);
+
+        $mAdminPers = Permissions::adminPermissions();
+        $adminPers = array_map(function ($per) {
+            return Permission::findOrCreate($per);
+        }, $mAdminPers);
 
         // create roles and assign existing permissions
-        $student = Role::create(['name' => Roles::STUDENT]);
-        $student->givePermissionTo(Permissions::UpdateOwnProfile);
+        $user = Role::create(['name' => ConstantsRole::USER]);
+        $admin = Role::create(['name' => ConstantsRole::ADMIN]);
+
+
+        $user->syncPermissions($userPers);
+        $user->syncPermissions($adminPers);
     }
 }

@@ -5,14 +5,14 @@ namespace App\Constants;
 
 final class Role
 {
-    public const STUDENT = 'student';
-    public const TEACHER = 'teacher';
+    public const USER = 'USER';
+    public const ADMIN = 'ADMIN';
 
     public static function getAllRoles()
     {
         return [
-            self::STUDENT,
-            self::TEACHER,
+            self::USER,
+            self::ADMIN,
         ];
     }
 }

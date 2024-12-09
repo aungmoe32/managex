@@ -23,22 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         \App\Models\User::factory(10)->create();
 
-        $users = User::all();
-        $users->each(function ($user) {
-            $user->assignRole(Roles::STUDENT);
-        });
-        Teacher::factory(5)->recycle($users)->create();
-
-        $this->call(SemesterSeeder::class);
-        $semesters = Semester::all();
-        Subject::factory(10)->recycle($semesters)->create();
-
-        $subjects = Subject::all();
-        Teacher::all()->each(function ($teacher) use ($subjects) {
-            $teacher->subjects()->attach(
-                // $subjects->random(rand(1, 3))->pluck('id')->toArray()
-                $subjects->random(1)->pluck('id')->toArray()
-            );
-        });
+        // $users = User::all();
+        // $users->each(function ($user) {
+        //     $user->assignRole(Roles::SiwTUDENT);
+        // });
     }
 }

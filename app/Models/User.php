@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\Role;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,6 +54,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         static::created(function (User $user) {
             $user->profile()->create([]);
+            $user->assignRole(Role::USER);
         });
     }
 }
