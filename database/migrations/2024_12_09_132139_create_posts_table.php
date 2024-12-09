@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('body');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null'); // Optional: link to users table
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
+            $table->boolean('publish')->default(false); // Publish status, default is unpublished
             $table->timestamps();
         });
     }

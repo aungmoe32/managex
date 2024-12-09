@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Post extends Model
 {
     use HasFactory;
+    protected $fillable = ['title', 'body', 'publish', 'category_id'];
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);

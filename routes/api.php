@@ -1,15 +1,16 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, RegisteredUserController, PasswordResetLinkController};
 use App\Http\Controllers\EmailVerificationNotificationController;
-use Illuminate\Support\Facades\Auth;
+use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, RegisteredUserController, PasswordResetLinkController};
 
 /*
 |--------------------------------------------------------------------------
@@ -39,11 +40,13 @@ use Illuminate\Support\Facades\Auth;
 // });
 
 
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::apiResource('posts', PostController::class);
+});
 
 
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-
     // Authentication routes
     Route::prefix('auth')->group(function () {
 

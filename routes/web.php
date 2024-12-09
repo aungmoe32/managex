@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AutoLogin;
 use App\Http\Middleware\AutoLoginVerifyMiddleware;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Request;
