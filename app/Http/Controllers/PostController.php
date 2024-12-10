@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Subject;
 use App\Constants\Constant;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 use App\Permissions\Permissions;
+use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -25,11 +27,10 @@ class PostController extends Controller
     {
         $posts = QueryBuilder::for(Post::class)
             ->allowedFilters(['title', AllowedFilter::exact('publish'), AllowedFilter::exact('category_id'), 'category.name', 'comments.content'])
-            ->allowedIncludes(['comments'])
+            ->allowedIncludes(['comments', 'user'])
             ->with(['medias', 'category'])
             ->paginate(Constant::PageSize);
-
-        return $posts;
+        return PostResource::collection($posts);
     }
 
     /**
@@ -56,7 +57,14 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post) {}
+    public function show($id)
+    {
+        $post = QueryBuilder::for(Post::class) // base query instead of model
+            ->allowedIncludes(['user'])
+            ->with(['category', 'medias'])
+            ->findOrFail($id); // we only need one specific user
+        return PostResource::make($post);
+    }
 
     /**
      * Update the specified resource in storage.
