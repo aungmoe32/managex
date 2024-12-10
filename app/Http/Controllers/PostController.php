@@ -24,8 +24,9 @@ class PostController extends Controller
     public function index()
     {
         $posts = QueryBuilder::for(Post::class)
-            ->allowedFilters(['title', AllowedFilter::exact('category_id'), 'category.name', 'comments.content'])
-            ->allowedIncludes(['category', 'comments'])
+            ->allowedFilters(['title', AllowedFilter::exact('publish'), AllowedFilter::exact('category_id'), 'category.name', 'comments.content'])
+            ->allowedIncludes(['comments'])
+            ->with(['medias', 'category'])
             ->paginate(Constant::PageSize);
 
         return $posts;
@@ -38,11 +39,16 @@ class PostController extends Controller
     {
         $validated = $request->validated();
         $user = Auth::user();
-        // dd($user->can('create'));
-        // dd($user->can(Permissions::CRUDOwnPost));
         if ($user->can('create', Post::class)) {
             $post = $user->posts()->create($validated);
-            return $this->ok('Created', $post);
+            if ($request->hasFile('medias')) {
+                foreach (request('medias') as $file) {
+                    $post
+                        ->addMedia($file)
+                        ->toMediaCollection('medias');
+                }
+            }
+            return $this->ok('Post Created', $post);
         }
         return $this->notAuthorized('not authorized');
     }
@@ -50,10 +56,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
-    {
-        //
-    }
+    public function show(Post $post) {}
 
     /**
      * Update the specified resource in storage.

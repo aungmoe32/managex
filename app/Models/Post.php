@@ -2,13 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Comment;
+use App\Models\Category;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
+    use InteractsWithMedia;
     use HasFactory;
     protected $fillable = ['title', 'body', 'publish', 'category_id'];
     public function comments(): HasMany
@@ -22,5 +28,9 @@ class Post extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+    public function medias()
+    {
+        return $this->media()->where('collection_name', 'medias');
     }
 }
