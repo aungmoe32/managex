@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\EmailVerificationNotificationController;
+use App\Http\Controllers\MediaController;
 use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, RegisteredUserController, PasswordResetLinkController};
 
 /*
@@ -88,3 +91,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         });
     });
 });
+
+Route::get('/storage/{id}/{filename}', [MediaController::class, 'show'])->middleware([
+    'auth:sanctum',
+    'verified'
+]);

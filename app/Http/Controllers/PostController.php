@@ -26,7 +26,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = QueryBuilder::for(Post::class)
-            ->allowedFilters(['title', AllowedFilter::exact('publish'), AllowedFilter::exact('category_id'), 'category.name', 'comments.content'])
+            ->allowedFilters(['title', AllowedFilter::exact('publish'), AllowedFilter::exact('user.id'), AllowedFilter::exact('category_id'), 'category.name', 'comments.content'])
             ->allowedIncludes(['comments', 'user'])
             ->with(['medias', 'category'])
             ->paginate(Constant::PageSize);

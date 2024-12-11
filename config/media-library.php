@@ -1,12 +1,14 @@
 <?php
 
+use App\Utils\CGenerator;
+
 return [
 
     /*
      * The disk on which to store added files and derived images by default. Choose
      * one or more of the disks you've configured in config/filesystems.php.
      */
-    'disk_name' => env('MEDIA_DISK', 'public'),
+    'disk_name' => env('MEDIA_DISK', 'local'),
 
     /*
      * The maximum file size of an item in bytes.
@@ -96,7 +98,8 @@ return [
      * When urls to files get generated, this class will be called. Use the default
      * if your files are stored locally above the site root or on s3.
      */
-    'url_generator' => Spatie\MediaLibrary\Support\UrlGenerator\DefaultUrlGenerator::class,
+    // 'url_generator' => Spatie\MediaLibrary\Support\UrlGenerator\DefaultUrlGenerator::class,
+    'url_generator' => CGenerator::class,
 
     /*
      * Moves media on updating to keep path consistent. Enable it only with a custom
