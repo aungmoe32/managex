@@ -38,6 +38,6 @@ class PermissionSeeder extends Seeder
 
 
         $user->syncPermissions($userPers);
-        $user->syncPermissions($adminPers);
+        $admin->syncPermissions($adminPers);
     }
 }

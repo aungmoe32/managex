@@ -44,7 +44,9 @@ use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, Registere
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::apiResource('posts', PostController::class);
+    Route::apiResource('posts', PostController::class)->except(['update']);
+    Route::put('posts/{post}', [PostController::class, 'replace']);
+    Route::patch('posts/{post}', [PostController::class, 'update']);
 });
 
 
@@ -87,7 +89,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::prefix('user')->middleware(['verified'])->group(function () {
         Route::get('/', function (Request $request) {
-            return $request->user();
+            $user = Auth::user();
+            $user->all_permissions = $user->getAllPermissions();
+            return $user;
         });
     });
 });

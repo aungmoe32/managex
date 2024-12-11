@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\SubjectResource;
 
 class PostController extends Controller
@@ -69,9 +70,15 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $user = Auth::user();
+        if ($user->can('update', $post)) {
+            $post->update($request->validated());
+            return $post;
+        }
+
+        return $this->notAuthorized('Not authorized');
     }
 
     /**

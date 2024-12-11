@@ -7,6 +7,7 @@ namespace App\Utils;
  *
  * @author Rana
  * @link http://codesamplez.com/programming/php-html5-video-streaming-tutorial
+ * https://stackoverflow.com/questions/58709069/how-to-stream-video-in-laravel
  */
 class VideoStream
 {

@@ -42,6 +42,13 @@ class PostPolicy
     public function update(User $user, Post $post): bool
     {
         //
+        if ($user->can(Permissions::CRUDAnyPost)) {
+            return true;
+        }
+        if ($user->can(Permissions::CRUDOwnPost)) {
+            return $user->id == $post->user_id;
+        }
+        return false;
     }
 
     /**
