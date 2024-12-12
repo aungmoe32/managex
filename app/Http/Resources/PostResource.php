@@ -21,6 +21,7 @@ class PostResource extends JsonResource
             'publish' => $this->publish,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'category' => CategoryResource::make($this->whenLoaded('category')),
             'user' => UserResource::make($this->whenLoaded('user')),
             'medias' => MediaResource::collection($this->medias)
         ];

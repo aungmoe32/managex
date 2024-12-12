@@ -14,7 +14,15 @@ class PostPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        if ($user->can(Permissions::CRUDAnyPost)) return true;
+
+        // check filter[user.id] is logged in user
+        $filters = request()->query('filter', []);
+        if (is_array($filters) && array_key_exists('user.id', $filters)) {
+            return (auth()->user()->id == $filters['user.id']);
+        }
+
+        return false;
     }
 
     /**

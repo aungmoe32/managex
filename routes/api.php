@@ -87,13 +87,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 
 
-    Route::prefix('user')->middleware(['verified'])->group(function () {
-        Route::get('/', function (Request $request) {
-            $user = Auth::user();
-            $user->all_permissions = $user->getAllPermissions();
-            return $user;
-        });
-    });
+
+    Route::get('profile', [ProfileController::class, 'index'])->middleware(['verified']);
 });
 
 Route::get('/storage/{id}/{filename}', [MediaController::class, 'show'])->middleware([

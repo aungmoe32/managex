@@ -18,7 +18,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $user->all_permissions = $user->getAllPermissions();
+        return $user;
     }
 
     /**

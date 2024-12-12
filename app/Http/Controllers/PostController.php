@@ -26,10 +26,23 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = QueryBuilder::for(Post::class)
-            ->allowedFilters(['title', AllowedFilter::exact('publish'), AllowedFilter::exact('user.id'), AllowedFilter::exact('category_id'), 'category.name', 'comments.content'])
+        $viewAnyPost = auth()->user()->can('viewAny', Post::class);
+        $filters = [
+            'title',
+            $viewAnyPost ? AllowedFilter::exact('publish') : null,
+            AllowedFilter::exact('user.id'),
+            AllowedFilter::exact('category_id'),
+            'category.name',
+            'comments.content'
+        ];
+        $query = QueryBuilder::for(Post::class)
+            ->allowedFilters(array_filter($filters))
             ->allowedIncludes(['comments', 'user'])
-            ->with(['medias', 'category'])
+            ->with(['medias', 'category']);
+
+        if (!$viewAnyPost) $query
+            ->where('publish', 1);
+        $posts = $query
             ->paginate(Constant::PageSize);
         return PostResource::collection($posts);
     }
