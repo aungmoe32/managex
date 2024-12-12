@@ -86,6 +86,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $user = Auth::user();
+        if ($user->can('delete', $post)) {
+            $post->delete();
+            return $this->success('Post Deleted');
+        }
+        return $this->notAuthorized('Not authorized');
     }
 }
