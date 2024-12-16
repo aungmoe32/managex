@@ -13,6 +13,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\EmailVerificationNotificationController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\RoleController;
 use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, RegisteredUserController, PasswordResetLinkController};
 
 /*
@@ -50,6 +51,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Route::apiResource('profiles', ProfileController::class);
     Route::get('profile', [ProfileController::class, 'me']);
     Route::post('profile', [ProfileController::class, 'updateMe']);
+
+    Route::get('roles', [RoleController::class, 'index']);
 });
 
 
