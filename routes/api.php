@@ -10,6 +10,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
@@ -86,6 +87,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
                 ->middleware('guest:' . config('fortify.guard'))  // Only guests (non-authenticated users) are allowed
                 ->name('password.email');  // Name for the route
         });
+        Route::post('/logout', [LogoutController::class, 'destroy']);
+
 
         // Route to resend email verification notification
         Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
@@ -97,6 +100,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 // Get media files
 Route::get('/storage/{id}/{filename}', [MediaController::class, 'show'])->middleware([
-    // 'auth:sanctum',
-    // 'verified'
+    'auth:sanctum',
+    'verified'
 ]);

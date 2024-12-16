@@ -12,6 +12,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\RateLimiter;
+use Laravel\Fortify\Contracts\LogoutResponse;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use Laravel\Fortify\Contracts\PasswordUpdateResponse;
 use Laravel\Fortify\Contracts\{LoginResponse, RegisterResponse, PasswordResetResponse};
@@ -52,6 +53,15 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
 
+        // Customized logout response
+        $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
+            public function toResponse($request)
+            {
+                return $request->wantsJson()
+                    ? response()->json(['message' => 'Succesfully logged out'], 200)
+                    : redirect(Fortify::redirects('logout', '/'));
+            }
+        });
 
         // Customized password update response
         $this->app->instance(PasswordUpdateResponse::class, new class implements PasswordUpdateResponse {
