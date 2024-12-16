@@ -47,6 +47,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::apiResource('posts', PostController::class)->except(['update']);
     Route::put('posts/{post}', [PostController::class, 'replace']);
     Route::patch('posts/{post}', [PostController::class, 'update']);
+    // Route::apiResource('profiles', ProfileController::class);
+    Route::get('profile', [ProfileController::class, 'me']);
+    Route::post('profile', [ProfileController::class, 'updateMe']);
 });
 
 
@@ -85,13 +88,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
                 'throttle:' . $verificationLimiter // Throttle resend email attempts
             ]);
     });
-
-
-
-    Route::get('profile', [ProfileController::class, 'index'])->middleware(['verified']);
 });
 
 Route::get('/storage/{id}/{filename}', [MediaController::class, 'show'])->middleware([
-    'auth:sanctum',
-    'verified'
+    // 'auth:sanctum',
+    // 'verified'
 ]);

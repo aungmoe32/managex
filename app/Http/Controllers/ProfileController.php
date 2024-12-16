@@ -2,70 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProfileRequest;
-use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Profile;
-use App\Traits\ApiResponses;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Resources\OwnProfileResource;
+use App\Http\Resources\RoleResource;
+use App\Http\Resources\UserResource;
+use App\Traits\ApiResponses;
 
 class ProfileController extends Controller
 {
     use ApiResponses;
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $user = Auth::user();
-        $user->all_permissions = $user->getAllPermissions();
-        return $user;
-    }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProfileRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Display the my profile.
      */
 
-    public function show()
+    public function me()
     {
         $user = auth()->user();
-        $user->profile->image_url = $user->profile->getFirstMedia('profile')->getUrl();
-        return $user;
+        $user->roles;
+        return OwnProfileResource::make($user);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the my profile
      */
-    public function edit(Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProfileRequest $request)
+    public function updateMe(UpdateProfileRequest $request)
     {
         $user = Auth::user();
         if ($user->can('update', $user->profile)) {
             $data = [];
+            // dd(request()->has('bio'));
             if ($request->has('bio')) $data['bio'] = $request->input('bio');
             if ($request->hasFile('image')) {
                 // dd(url($user->profile->image_file));
@@ -74,9 +43,41 @@ class ProfileController extends Controller
                     ->toMediaCollection('profile');
             }
             $user->profile->update($data);
-            return $user;
+            return $this->success('profile updated');
+            // return $user;
         }
         return $this->notAuthorized('You are not authorized to update that resource');
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Profile $profile)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Profile $profile)
+    {
+        //
     }
 
     /**
