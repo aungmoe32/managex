@@ -28,7 +28,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     ], 200);
 })->middleware([AutoLogin::class,  'signed'])->name('verification.verify');
 
-
+// Password Reset View
 Route::get('/reset-password/{token}', function (string $token) {
     return view('auth.reset-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');

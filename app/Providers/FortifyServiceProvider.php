@@ -2,18 +2,19 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Laravel\Fortify\Fortify;
 use App\Actions\Fortify\CreateNewUser;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Cache\RateLimiting\Limit;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
-use Laravel\Fortify\Fortify;
+use App\Actions\Fortify\UpdateUserProfileInformation;
+use Laravel\Fortify\Contracts\PasswordUpdateResponse;
 use Laravel\Fortify\Contracts\{LoginResponse, RegisterResponse, PasswordResetResponse};
-use App\Models\User;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -22,7 +23,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-
+        // Customize login response
         $this->app->instance(LoginResponse::class, new class implements LoginResponse {
             public function toResponse($request)
             {
@@ -37,6 +38,7 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
 
+        // Customize register response
         $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
             public function toResponse($request)
             {
@@ -49,7 +51,19 @@ class FortifyServiceProvider extends ServiceProvider
                     : redirect()->intended(Fortify::redirects('register'));
             }
         });
-        // response after reset success
+
+
+        // Customized password update response
+        $this->app->instance(PasswordUpdateResponse::class, new class implements PasswordUpdateResponse {
+            public function toResponse($request)
+            {
+                return $request->wantsJson()
+                    ? response()->json(['message' => 'password updated successfully'], 200)
+                    : back()->with('status', Fortify::PASSWORD_UPDATED);
+            }
+        });
+
+        // Response after reset success
         $this->app->singleton(
             PasswordResetResponse::class,
             function ($app, $status) {

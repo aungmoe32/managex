@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use Laravel\Fortify\Http\Controllers\PasswordController;
 use App\Http\Controllers\EmailVerificationNotificationController;
-use App\Http\Controllers\MediaController;
-use App\Http\Controllers\RoleController;
 use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, RegisteredUserController, PasswordResetLinkController};
 
 /*
@@ -53,6 +54,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('profile', [ProfileController::class, 'updateMe']);
 
     Route::get('roles', [RoleController::class, 'index']);
+    Route::put('/update-password', [PasswordController::class, 'update']);
 });
 
 
@@ -93,6 +95,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 });
 
+// Get media files
 Route::get('/storage/{id}/{filename}', [MediaController::class, 'show'])->middleware([
     // 'auth:sanctum',
     // 'verified'
