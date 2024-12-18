@@ -28,13 +28,11 @@ class ProfileController extends Controller
     }
 
     /**
-     * Display the my profile.
+     * Update Email
      */
-
     public function updateEmail(UpdateEmailRequest $request)
     {
         $user = auth()->user();
-        // $user->update($request->validated());
         $user->email = $request->safe()->email;
         $user->email_verified_at = null;
         $user->save();
@@ -49,17 +47,15 @@ class ProfileController extends Controller
         $user = Auth::user();
         if ($user->can('update', $user->profile)) {
             $data = [];
-            // dd(request()->has('bio'));
             if ($request->has('bio')) $data['bio'] = $request->input('bio');
             if ($request->hasFile('image')) {
-                // dd(url($user->profile->image_file));
                 $user->profile
                     ->addMediaFromRequest('image')
                     ->toMediaCollection('profile');
             }
-            $user->profile->update($data);
+            if ($request->has('name')) $user->update($request->safe()->only('name'));
+            $user->profile()->update($data);
             return $this->success('profile updated');
-            // return $user;
         }
         return $this->notAuthorized('You are not authorized to update that resource');
     }
