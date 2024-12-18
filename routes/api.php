@@ -54,13 +54,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('profile', [ProfileController::class, 'me']);
     Route::post('profile', [ProfileController::class, 'updateMe']);
 
-    Route::get('roles', [RoleController::class, 'index']);
     Route::put('/update-password', [PasswordController::class, 'update']);
+    Route::put('/update-email', [ProfileController::class, 'updateEmail']);
 });
 
 
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('roles', [RoleController::class, 'index']);
     // Authentication routes
     Route::prefix('auth')->group(function () {
 

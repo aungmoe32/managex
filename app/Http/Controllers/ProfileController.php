@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateEmailRequest;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,20 @@ class ProfileController extends Controller
         $user = auth()->user();
         $user->roles;
         return OwnProfileResource::make($user);
+    }
+
+    /**
+     * Display the my profile.
+     */
+
+    public function updateEmail(UpdateEmailRequest $request)
+    {
+        $user = auth()->user();
+        // $user->update($request->validated());
+        $user->email = $request->safe()->email;
+        $user->email_verified_at = null;
+        $user->save();
+        return $this->success('Updated');
     }
 
     /**
