@@ -37,6 +37,8 @@ class PostController extends Controller
         ];
         $query = QueryBuilder::for(Post::class)
             ->allowedFilters(array_filter($filters))
+            ->defaultSort(['-created_at']) // newest posts
+            ->allowedSorts(['title', 'publish', 'category_id', 'created_at'])
             ->allowedIncludes(['comments', 'user'])
             ->with(['medias', 'category']);
 
