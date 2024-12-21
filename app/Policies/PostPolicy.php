@@ -30,7 +30,16 @@ class PostPolicy
      */
     public function view(User $user, Post $post): bool
     {
-        //
+        if ($post->publish) {
+            return true;
+        }
+        if ($user->can(Permissions::CRUDAnyPost)) {
+            return true;
+        }
+        if ($user->can(Permissions::CRUDOwnPost)) {
+            return $user->id == $post->user_id;
+        }
+        return false;
     }
 
     /**

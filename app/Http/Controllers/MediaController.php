@@ -46,8 +46,12 @@ class MediaController extends Controller
     }
 
     // showing medias
-    public function show($id, $filename)
+    public function show(Post $post, $id, $filename)
     {
+        $user = Auth::user();
+        if (!$user->can('view', $post)) {
+            return $this->notAuthorized('Not authorized');
+        }
 
         // Define the private path
         $path = storage_path("app/{$id}/{$filename}");
