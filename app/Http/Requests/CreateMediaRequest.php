@@ -2,12 +2,15 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Validator;
 use App\Validation\ValidateMediaSize;
+use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest
+class CreateMediaRequest extends FormRequest
 {
+    protected $stopOnFirstFailure = true;
+
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,14 +27,8 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
-            'body' => 'required|string',
-            'publish' => 'required|boolean',
-            'category_id' => 'required|integer|exists:categories,id',
-            'user_id' => 'sometimes|integer|exists:users,id',
             'medias' => 'required|array',
             'medias.*' => 'required|file',
-            // 'medias.*' => 'required|file|mimes:jpeg,png,mp4|max:2048', // Validate each file
         ];
     }
 

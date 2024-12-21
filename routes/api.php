@@ -56,6 +56,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::put('/update-password', [PasswordController::class, 'update']);
     Route::put('/update-email', [ProfileController::class, 'updateEmail']);
+
+    Route::post('posts/{post}/medias', [MediaController::class, 'store']);
 });
 
 
