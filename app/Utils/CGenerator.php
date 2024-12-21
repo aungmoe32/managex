@@ -8,8 +8,8 @@ class CGenerator extends DefaultUrlGenerator
 {
     public function geturl(): string
     {
-        $url = $this->getdisk()->url($this->getpathrelativetoroot());
-
-        return $this->versionurl(url("api" . $url));
+        // $url = $this->getdisk()->url($this->getpathrelativetoroot());
+        $url = $this->getpathrelativetoroot();
+        return $this->versionurl(url("api/medias/" . $url));
     }
 }

@@ -9,6 +9,7 @@ use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateMediaRequest;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaController extends Controller
 {
@@ -46,8 +47,10 @@ class MediaController extends Controller
     }
 
     // showing medias
-    public function show(Post $post, $id, $filename)
+    public function show($id, $filename)
     {
+        $media = Media::find($id);
+        $post = $media->model;
         $user = Auth::user();
         if (!$user->can('view', $post)) {
             return $this->notAuthorized('Not authorized');

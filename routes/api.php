@@ -103,7 +103,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 });
 
 // Get media files
-Route::get('/posts/{post}/medias/{id}/{filename}', [MediaController::class, 'show'])->middleware([
+Route::get('/medias/{id}/{filename}', [MediaController::class, 'show'])->middleware([
     'auth:sanctum',
     'verified'
 ]);
