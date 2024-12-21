@@ -18,12 +18,17 @@ class ValidateMediaSize
             if (str_starts_with($mimeType, 'image/')) {
                 // Images: Max size 5MB
                 if ($file->getSize() > 5 * 1024 * 1024) {
-                    $validator->errors()->add('medias', 'Each image must not exceed 2MB.');
+                    $validator->errors()->add('medias', 'Each image must not exceed 5MB.');
                 }
             } elseif (str_starts_with($mimeType, 'video/')) {
                 // Videos: Max size 50MB
                 if ($file->getSize() > 50 * 1024 * 1024) {
-                    $validator->errors()->add('medias', 'Each video must not exceed 10MB.');
+                    $validator->errors()->add('medias', 'Each video must not exceed 50MB.');
+                }
+            } elseif (str_starts_with($mimeType, 'application/pdf')) {
+                // Pdf: Max size 50MB
+                if ($file->getSize() > 50 * 1024 * 1024) {
+                    $validator->errors()->add('medias', 'Each pdf must not exceed 50MB.');
                 }
             } else {
                 // Invalid file type
