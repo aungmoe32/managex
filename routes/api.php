@@ -58,6 +58,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::put('/update-email', [ProfileController::class, 'updateEmail']);
 
     Route::post('posts/{post}/medias', [MediaController::class, 'store']);
+    Route::delete('posts/{post}/medias/{media_id}', [MediaController::class, 'destroy']);
 });
 
 

@@ -18,15 +18,29 @@ class MediaController extends Controller
     public function store(CreateMediaRequest $request, Post $post)
     {
         $user = Auth::user();
+        $media = null;
         if ($user->can('update', $post)) {
             if ($request->hasFile('medias')) {
                 foreach (request('medias') as $file) {
-                    $post
+                    $media = $post
                         ->addMedia($file)
                         ->toMediaCollection('medias');
                 }
             }
-            return $this->ok('Medias Created');
+            return $this->ok('Medias Created', [
+                'id' => $media->id
+            ]);
+        }
+        return $this->notAuthorized('Not authorized');
+    }
+
+    // deleting medias
+    public function destroy(Post $post, $media_id)
+    {
+        $user = Auth::user();
+        if ($user->can('update', $post)) {
+            $post->deleteMedia($media_id);
+            return $this->ok('Media Deleted');
         }
         return $this->notAuthorized('Not authorized');
     }
