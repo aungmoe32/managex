@@ -24,7 +24,8 @@ class UpdateProfileRequest extends FormRequest
         return [
             'bio' => 'sometimes|string|min:1|max:50',
             'name' => 'sometimes|string|min:1|max:30',
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048'
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
+            'password' => ['required', 'current_password:sanctum'],
         ];
     }
 }

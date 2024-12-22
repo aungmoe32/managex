@@ -16,6 +16,7 @@ return [
     */
 
     'guard' => 'web',
+    // 'guard' => 'sanctum',
 
     /*
     |--------------------------------------------------------------------------
@@ -150,8 +151,8 @@ return [
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([
-            'confirm' => true,
-            'confirmPassword' => true,
+            // 'confirm' => true,
+            // 'confirmPassword' => true,
             // 'window' => 0,
         ]),
     ],

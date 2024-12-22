@@ -94,7 +94,7 @@ class Handler extends ExceptionHandler
                 'type' => substr($className, $index + 1),
                 'status' => 0,
                 'message' => $exception->getMessage(),
-                // 'source' => 'Line: ' . $exception->getLine() . ': ' . $exception->getFile()
+                'source' => 'Line: ' . $exception->getLine() . ': ' . $exception->getFile()
             ]
         ]);
     }

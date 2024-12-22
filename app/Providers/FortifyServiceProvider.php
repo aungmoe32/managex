@@ -14,7 +14,9 @@ use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Fortify\Contracts\LogoutResponse;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Contracts\PasswordUpdateResponse;
+use Laravel\Fortify\Contracts\TwoFactorLoginResponse;
 use Laravel\Fortify\Contracts\{LoginResponse, RegisterResponse, PasswordResetResponse};
 
 class FortifyServiceProvider extends ServiceProvider
@@ -36,6 +38,23 @@ class FortifyServiceProvider extends ServiceProvider
                     ], 200);
                 }
                 return redirect()->intended(Fortify::redirects('login'));
+            }
+        });
+
+        // Customize 2FA Success Response
+        $this->app->instance(TwoFactorLoginResponse::class, new class implements TwoFactorLoginResponse {
+            public function toResponse($request)
+            {
+                $user = request()->user();
+                Auth::logout();
+                if (request()->session()) {
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+                }
+                return response()->json([
+                    "message" => "You are successfully logged in",
+                    "token" => $user->createToken('api')->plainTextToken,
+                ], 200);
             }
         });
 

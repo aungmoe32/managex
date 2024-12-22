@@ -36,3 +36,6 @@ Route::get('/reset-password/{token}', function (string $token) {
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/token', function () {
+    return csrf_token();
+});

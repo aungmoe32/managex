@@ -16,7 +16,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use Laravel\Fortify\Http\Controllers\PasswordController;
 use App\Http\Controllers\EmailVerificationNotificationController;
-use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, RegisteredUserController, PasswordResetLinkController};
+use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, RegisteredUserController, PasswordResetLinkController, TwoFactorAuthenticationController, TwoFactorQrCodeController};
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +29,10 @@ use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, Registere
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// Route::middleware([
+//     'auth:sanctum',
+//     'password.confirm'
+// ])->get('/test', function (Request $request) {
 //     return $request->user();
 // });
 
@@ -78,6 +81,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             // Route for user login
             Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                 ->middleware(array_filter([
+                    'web',
                     'guest:' . config('fortify.guard'),  // Only guests (non-authenticated users) are allowed
                     $limiter ? 'throttle:' . $limiter : null,  // Throttle login attempts if limiter is configured
                 ]));
@@ -107,3 +111,13 @@ Route::get('/medias/{id}/{filename}', [MediaController::class, 'show'])->middlew
     'auth:sanctum',
     'verified'
 ]);
+Route::post('user/two-factor-authentication', [TwoFactorAuthenticationController::class, 'store'])->middleware([
+    'auth:sanctum',
+])->name('two-factor.enable');
+Route::delete('user/two-factor-authentication', [TwoFactorAuthenticationController::class, 'destroy'])->middleware([
+    'auth:sanctum',
+])->name('two-factor.disable');
+
+Route::get('user/two-factor-qr-code', [TwoFactorQrCodeController::class, 'show'])->middleware([
+    'auth:sanctum',
+])->name('two-factor.qr-code');
