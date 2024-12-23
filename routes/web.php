@@ -34,7 +34,7 @@ Route::get('/reset-password/{token}', function (string $token) {
 })->middleware('guest')->name('password.reset');
 
 Route::get('/', function () {
-    return view('auth.reset-password');
+    return view('welcome');
 });
 Route::get('/token', function () {
     return csrf_token();
