@@ -41,11 +41,12 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
 
-        // Customize 2FA Success Response
+        // Customize 2FA Login Success Response
         $this->app->instance(TwoFactorLoginResponse::class, new class implements TwoFactorLoginResponse {
             public function toResponse($request)
             {
                 $user = request()->user();
+                // Logout and clear session cookies for only use with api token
                 Auth::logout();
                 if (request()->session()) {
                     $request->session()->invalidate();

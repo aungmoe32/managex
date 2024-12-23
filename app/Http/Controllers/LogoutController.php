@@ -26,7 +26,7 @@ class LogoutController extends AuthenticatedSessionController
     {
         $this->guard = $guard;
     }
-    
+
 
     /**
      * Destroy an authenticated session.
@@ -36,8 +36,10 @@ class LogoutController extends AuthenticatedSessionController
      */
     public function destroy(Request $request): LogoutResponse
     {
-        if($request->wantsJson()) {
-
+        if ($request->wantsJson()) {
+            if ($request->hasSession()) {
+                $request->session()->invalidate();
+            }
             $request->user()->tokens()->delete(); // revoke all tokens
 
             return app(LogoutResponse::class);
@@ -45,9 +47,9 @@ class LogoutController extends AuthenticatedSessionController
             $this->guard->logout();
 
             $request->session()->invalidate();
-    
+
             $request->session()->regenerateToken();
-    
+
             return app(LogoutResponse::class);
         }
     }
