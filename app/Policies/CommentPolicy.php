@@ -55,7 +55,13 @@ class CommentPolicy
      */
     public function update(User $user, Comment $comment): bool
     {
-        //
+        if ($user->can(Permissions::CRUDAnyComment)) {
+            return true;
+        }
+        if ($user->can(Permissions::CRUDOwnComment)) {
+            return $user->id == $comment->user_id;
+        }
+        return false;
     }
 
     /**

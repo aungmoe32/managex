@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Traits\ApiResponses;
+use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Resources\CommentResource;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
-use App\Http\Resources\CommentResource;
 
 class CommentController extends Controller
 {
@@ -80,7 +81,13 @@ class CommentController extends Controller
      */
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        //
+        $user = Auth::user();
+        if ($user->can('update', $comment)) {
+            $comment->update($request->validated());
+            return $this->success('Comment Updated');
+        }
+
+        return $this->notAuthorized('Not authorized');
     }
 
     /**
