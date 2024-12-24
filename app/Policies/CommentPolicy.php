@@ -15,7 +15,15 @@ class CommentPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        if ($user->can(Permissions::CRUDAnyComment)) {
+            return true;
+        }
+        $post = request('post');
+        if ($post->publish) return true;
+        if ($user->can(Permissions::CRUDOwnComment)) {
+            return $post->user_id == $user->id;
+        }
+        return false;
     }
 
     /**
@@ -36,10 +44,9 @@ class CommentPolicy
         }
         $post = request('post');
         if ($post->publish) return true;
-        if ($post->user_id == $user->id) return true;
-        // if ($user->can(Permissions::CRUDOwnComment)) {
-        //     return true;
-        // }
+        if ($user->can(Permissions::CRUDOwnComment)) {
+            return $post->user_id == $user->id;
+        }
         return false;
     }
 

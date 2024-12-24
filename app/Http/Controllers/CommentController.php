@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\Comment;
+use App\Traits\ApiResponses;
+use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
-use App\Models\Comment;
-use App\Models\Post;
-use App\Traits\ApiResponses;
+use App\Http\Resources\CommentResource;
 
 class CommentController extends Controller
 {
@@ -14,9 +16,23 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Post $post)
     {
-        //
+
+        $viewAny = auth()->user()->can('viewAny', Comment::class);
+        if ($viewAny) {
+            $query = QueryBuilder::for(Comment::class)
+                ->allowedFilters(['content'])
+                ->defaultSort(['-created_at']) // newest cmts
+                ->allowedSorts(['created_at'])
+                ->where('post_id', $post->id)
+                ->with(['user']);
+
+            $posts = $query
+                ->paginate(10);
+            return CommentResource::collection($posts);
+        }
+        return $this->notAuthorized();
     }
 
     /**
