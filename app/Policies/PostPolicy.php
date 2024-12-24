@@ -50,6 +50,9 @@ class PostPolicy
         if ($user->can(Permissions::CRUDOwnPost)) {
             return true;
         }
+        if ($user->can(Permissions::CRUDAnyPost)) {
+            return true;
+        }
         return false;
     }
 

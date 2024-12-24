@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
+use App\Models\Post;
+use App\Traits\ApiResponses;
 
 class CommentController extends Controller
 {
+    use ApiResponses;
     /**
      * Display a listing of the resource.
      */
@@ -27,9 +30,17 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommentRequest $request)
+    public function store(Post $post, StoreCommentRequest $request)
     {
-        //
+        $user = auth()->user();
+        if ($user->can('create', Comment::class)) {
+            $post->comments()->create([
+                'user_id' => $user->id,
+                'content' => $request->validated('content')
+            ]);
+            return $this->success('Comment created');
+        }
+        return $this->notAuthorized();
     }
 
     /**

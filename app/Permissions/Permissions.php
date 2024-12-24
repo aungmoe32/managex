@@ -9,17 +9,21 @@ final class Permissions
     public const UpdateOwnProfile = 'profile:own:update';
     public const CRUDOwnPost = 'post:own:crud';
     public const CRUDAnyPost = 'post:any:crud';
+    public const CRUDOwnComment = 'comment:own:crud';
+    public const CRUDAnyComment = 'comment:any:crud';
 
     public static function adminPermissions()
     {
         return array_merge(self::userPermissions(), [
             self::CRUDAnyPost,
+            self::CRUDAnyComment,
         ]);
     }
     public static function userPermissions()
     {
         return [
             self::CRUDOwnPost,
+            self::CRUDOwnComment,
             self::UpdateOwnProfile,
         ];
     }

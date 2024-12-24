@@ -11,6 +11,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
@@ -22,6 +23,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::apiResource('posts', PostController::class)->except(['update']);
     Route::put('posts/{post}', [PostController::class, 'replace']);
     Route::patch('posts/{post}', [PostController::class, 'update']);
+    Route::resource('posts.comments', CommentController::class)->shallow();
+
+
     // Route::apiResource('profiles', ProfileController::class);
     Route::get('profile', [ProfileController::class, 'me']);
     Route::post('profile', [ProfileController::class, 'updateMe']);

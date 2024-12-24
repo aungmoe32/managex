@@ -2,8 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Comment;
 use App\Models\User;
+use App\Models\Comment;
+use App\Models\Post;
+use App\Permissions\Permissions;
 use Illuminate\Auth\Access\Response;
 
 class CommentPolicy
@@ -29,7 +31,16 @@ class CommentPolicy
      */
     public function create(User $user): bool
     {
-        //
+        if ($user->can(Permissions::CRUDAnyComment)) {
+            return true;
+        }
+        $post = request('post');
+        if ($post->publish) return true;
+        if ($post->user_id == $user->id) return true;
+        // if ($user->can(Permissions::CRUDOwnComment)) {
+        //     return true;
+        // }
+        return false;
     }
 
     /**
