@@ -39,8 +39,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 require_once(__DIR__ . '/auth.php');
 
-// Get media files
+// Get posts' media files
 Route::get('/medias/{id}/{filename}', [MediaController::class, 'show'])->middleware([
+    'auth:sanctum',
+    'verified'
+]);
+// Get profile images
+Route::get('/profile-image/{id}/{filename}', [MediaController::class, 'profile'])->middleware([
     'auth:sanctum',
     'verified'
 ]);

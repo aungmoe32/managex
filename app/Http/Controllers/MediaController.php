@@ -75,4 +75,20 @@ class MediaController extends Controller
         // Return the file as a response
         return response()->file($path);
     }
+    // showing profile images
+    public function profile($id, $filename)
+    {
+
+        // Define the private path
+        $path = storage_path("app/{$id}/{$filename}");
+
+        // Check if the file exists
+        if (!file_exists($path)) {
+            abort(404, 'File not found');
+        }
+
+
+        // Return the file as a response
+        return response()->file($path);
+    }
 }
