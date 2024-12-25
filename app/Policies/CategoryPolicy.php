@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\Category;
 use App\Models\User;
+use App\Models\Category;
+use App\Permissions\Permissions;
 use Illuminate\Auth\Access\Response;
 
 class CategoryPolicy
@@ -29,7 +30,10 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        //
+        if ($user->can(Permissions::CRUDAnyCategory)) {
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -26,6 +27,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::patch('posts/{post}', [PostController::class, 'update']);
     Route::resource('posts.comments', CommentController::class)->shallow();
 
+
+    Route::apiResource('categories', CategoryController::class);
 
     // Route::apiResource('profiles', ProfileController::class);
     Route::get('profile', [ProfileController::class, 'me']);

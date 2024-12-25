@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Traits\ApiResponses;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+    use ApiResponses;
     /**
      * Display a listing of the resource.
      */
@@ -29,8 +32,14 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $user = Auth::user();
+        if ($user->can('create', Category::class)) {
+            Category::create($request->validated());
+            return $this->success('Category Created');
+        }
+        return $this->notAuthorized();
     }
+
 
     /**
      * Display the specified resource.

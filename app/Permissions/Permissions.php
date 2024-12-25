@@ -11,12 +11,14 @@ final class Permissions
     public const CRUDAnyPost = 'post:any:crud';
     public const CRUDOwnComment = 'comment:own:crud';
     public const CRUDAnyComment = 'comment:any:crud';
+    public const CRUDAnyCategory = 'category:any:crud';
 
     public static function adminPermissions()
     {
         return array_merge(self::userPermissions(), [
             self::CRUDAnyPost,
             self::CRUDAnyComment,
+            self::CRUDAnyCategory,
         ]);
     }
     public static function userPermissions()
