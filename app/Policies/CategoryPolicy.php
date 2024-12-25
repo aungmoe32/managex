@@ -41,7 +41,10 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        //
+        if ($user->can(Permissions::CRUDAnyCategory)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -49,7 +52,10 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        //
+        if ($user->can(Permissions::CRUDAnyCategory)) {
+            return true;
+        }
+        return false;
     }
 
     /**

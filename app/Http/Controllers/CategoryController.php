@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Traits\ApiResponses;
+use PhpParser\Node\Stmt\Catch_;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -16,7 +18,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $query = QueryBuilder::for(Category::class)
+            ->allowedFilters(['name'])
+            ->defaultSort(['-created_at']) // newest
+            ->allowedSorts(['created_at', 'name']);
+
+        $categories = $query
+            ->paginate(10);
+        return $categories;
     }
 
     /**
@@ -62,7 +71,12 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $user = Auth::user();
+        if ($user->can('update', $category)) {
+            $category->update($request->validated());
+            return $this->success('Category Updated');
+        }
+        return $this->notAuthorized();
     }
 
     /**
@@ -70,6 +84,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $user = Auth::user();
+        if ($user->can('delete', $category)) {
+            $category->delete();
+            return $this->success('Category Deleted');
+        }
+        return $this->notAuthorized();
     }
 }
