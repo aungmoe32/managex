@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             // 'email' => $this->email,
+            'profile' => $this->whenLoaded('profile'),
             'image_url' => $profileMedia ? $profileMedia->getUrl() : asset('/images/profile.png')
         ];
     }

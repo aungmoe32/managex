@@ -29,8 +29,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 
     Route::apiResource('categories', CategoryController::class);
-
     // Route::apiResource('profiles', ProfileController::class);
+    Route::apiResource('users', UserController::class);
+
     Route::get('profile', [ProfileController::class, 'me']);
     Route::post('profile', [ProfileController::class, 'updateMe']);
 

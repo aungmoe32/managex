@@ -12,7 +12,7 @@ class CGenerator extends DefaultUrlGenerator
         // $url = $this->getdisk()->url($this->getpathrelativetoroot());
         $url = $this->getpathrelativetoroot();
         if ($this->media->collection_name == 'profile') {
-            return URL::signedRoute('profile.image', ['id' => $this->media->id, 'filename' => $this->media->file_name]);
+            return URL::temporarySignedRoute('profile.image',  now()->addMinutes(30), ['id' => $this->media->id, 'filename' => $this->media->file_name]);
             // return $this->versionurl(url("api/profile-image/" . $url));
         }
         return URL::temporarySignedRoute('medias', now()->addMinutes(30), ['id' => $this->media->id, 'filename' => $this->media->file_name]);
