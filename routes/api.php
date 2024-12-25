@@ -2,6 +2,7 @@
 
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -44,8 +45,10 @@ Route::get('/medias/{id}/{filename}', [MediaController::class, 'show'])->middlew
     'auth:sanctum',
     'verified'
 ]);
+
 // Get profile images
 Route::get('/profile-image/{id}/{filename}', [MediaController::class, 'profile'])->middleware([
-    'auth:sanctum',
-    'verified'
-]);
+    // 'auth:sanctum',
+    // 'verified'
+    'signed'
+])->name('profile.image');
