@@ -16,6 +16,8 @@ use Spatie\QueryBuilder\AllowedFilter;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\SubjectResource;
+use App\Mail\PostPosted;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -64,6 +66,10 @@ class PostController extends Controller
                         ->addMedia($file)
                         ->toMediaCollection('medias');
                 }
+            }
+            if ($post->publish) {
+                $users = $post->category->users;
+                Mail::to($users)->send(new PostPosted($post));
             }
             return $this->ok('Post Created', $post);
         }

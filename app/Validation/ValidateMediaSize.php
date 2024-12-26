@@ -11,6 +11,7 @@ class ValidateMediaSize
     function __invoke(Validator $validator)
     {
         if ($validator->errors()->any()) return;
+        if (!request()->hasFile('medias')) return;
 
         foreach (request()->file('medias') as $file) {
             $mimeType = $file->getMimeType();
