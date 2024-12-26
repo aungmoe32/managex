@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Constants\Role;
+use App\Notifications\VerifyEmailQueued;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -63,5 +64,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             $user->profile()->create([]);
             $user->assignRole(Role::USER);
         });
+    }
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailQueued);
     }
 }
