@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Constants\Role;
-use App\Notifications\VerifyEmailQueued;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\VerifyEmailQueued;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
@@ -68,5 +69,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailQueued);
+    }
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class);
     }
 }

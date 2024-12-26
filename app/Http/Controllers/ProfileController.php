@@ -24,6 +24,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $user->roles;
+        $user->categories;
         return OwnProfileResource::make($user);
     }
 
@@ -55,6 +56,10 @@ class ProfileController extends Controller
             }
             if ($request->has('name')) $user->update($request->safe()->only('name'));
             $user->profile()->update($data);
+            if ($request->has('categories')) {
+                $user->categories()->detach();
+                $user->categories()->attach($request->validated('categories'));
+            }
             return $this->success('profile updated');
         }
         return $this->notAuthorized('You are not authorized to update that resource');

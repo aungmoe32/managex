@@ -11,6 +11,7 @@ class UpdateProfileRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // dd(request('categories'));
         return true;
     }
 
@@ -26,6 +27,7 @@ class UpdateProfileRequest extends FormRequest
             'name' => 'sometimes|string|min:1|max:30',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
             'password' => ['required', 'current_password:sanctum'],
+            'categories' => ['sometimes', 'array', 'exists:categories,id']
         ];
     }
 }

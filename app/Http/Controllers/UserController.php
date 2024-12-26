@@ -30,6 +30,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user->load('profile');
+        $user->categories;
         return UserResource::make($user);
     }
 

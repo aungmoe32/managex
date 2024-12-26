@@ -22,7 +22,8 @@ class UserResource extends JsonResource
             'name' => $this->name,
             // 'email' => $this->email,
             'profile' => $this->whenLoaded('profile'),
-            'image_url' => $profileMedia ? $profileMedia->getUrl() : asset('/images/profile.png')
+            'image_url' => $profileMedia ? $profileMedia->getUrl() : asset('/images/profile.png'),
+            'interested_categories' => CategoryResource::collection($this->whenLoaded('categories')),
         ];
     }
 }
