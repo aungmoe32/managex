@@ -69,7 +69,7 @@ class PostController extends Controller
             }
             if ($post->publish) {
                 $users = $post->category->users;
-                Mail::to($users)->send(new PostPosted($post));
+                Mail::to($users)->queue(new PostPosted($post));
             }
             return $this->ok('Post Created', $post);
         }
