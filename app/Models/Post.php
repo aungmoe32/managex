@@ -33,4 +33,10 @@ class Post extends Model implements HasMedia
     {
         return $this->media()->where('collection_name', 'medias');
     }
+    protected static function booted(): void
+    {
+        static::created(function (Post $post) {
+            $post->comments()->delete();
+        });
+    }
 }

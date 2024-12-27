@@ -64,14 +64,14 @@ class PostController extends Controller
                 foreach (request('medias') as $file) {
                     $post
                         ->addMedia($file)
-                        ->toMediaCollection('medias');
+                        ->toMediaCollection('medias', 's3');
                 }
             }
             if ($post->publish) {
                 $users = $post->category->users;
                 Mail::to($users)->queue(new PostPosted($post));
             }
-            return $this->ok('Post Created', $post);
+            return $this->ok('Post Created');
         }
         return $this->notAuthorized('not authorized');
     }
