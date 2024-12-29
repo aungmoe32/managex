@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class FavouriteController extends Controller
 {
@@ -13,6 +14,7 @@ class FavouriteController extends Controller
     {
         $user = auth()->user();
         $user->favourites()->attach($post->id);
+        Redis::hincrby("user:{$user->id}:stats", 'favourites', 1);
         return $this->success("Added to favourites");
     }
 
@@ -20,6 +22,7 @@ class FavouriteController extends Controller
     {
         $user = auth()->user();
         $user->favourites()->detach($post->id);
+        Redis::hincrby("user:{$user->id}:stats", 'favourites', -1);
         return $this->success("Removed from favourites");
     }
 

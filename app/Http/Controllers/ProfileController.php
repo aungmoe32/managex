@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateEmailRequest;
 use App\Models\Profile;
+use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\UpdateProfileRequest;
-use App\Http\Resources\OwnProfileResource;
 use App\Http\Resources\RoleResource;
 use App\Http\Resources\UserResource;
-use App\Traits\ApiResponses;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
+use App\Http\Requests\UpdateEmailRequest;
+use App\Http\Resources\OwnProfileResource;
+use App\Http\Requests\UpdateProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -63,6 +64,14 @@ class ProfileController extends Controller
             return $this->success('profile updated');
         }
         return $this->notAuthorized('You are not authorized to update that resource');
+    }
+    /**
+     * User stats
+     */
+    public function stats()
+    {
+        $user = auth()->user();
+        return Redis::hgetall("user:{$user->id}:stats");
     }
     /**
      * Display a listing of the resource.

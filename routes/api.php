@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::apiResource('users', UserController::class);
 
     Route::get('profile', [ProfileController::class, 'me']);
+    Route::get('stats', [ProfileController::class, 'stats']);
     Route::post('profile', [ProfileController::class, 'updateMe']);
 
     Route::put('/update-password', [PasswordController::class, 'update']);
