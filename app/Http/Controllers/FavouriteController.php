@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
@@ -30,6 +31,6 @@ class FavouriteController extends Controller
     {
         $user = auth()->user();
         $favourites = $user->favourites;
-        return $this->success($favourites);
+        return $this->success(PostResource::collection($favourites));
     }
 }

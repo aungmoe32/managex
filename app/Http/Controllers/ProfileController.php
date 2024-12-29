@@ -26,6 +26,7 @@ class ProfileController extends Controller
         $user = auth()->user();
         $user->roles;
         $user->categories;
+        $user->favourites;
         return OwnProfileResource::make($user);
     }
 

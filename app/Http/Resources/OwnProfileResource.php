@@ -19,6 +19,7 @@ class OwnProfileResource extends JsonResource
             'image_url' => $this->profile->getFirstMedia('profile')->getUrl(),
             'categories' => CategoryResource::collection($this->categories),
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
+            'favourites' => PostResource::collection($this->whenLoaded('favourites'))
         ];
     }
 }
