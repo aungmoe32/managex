@@ -124,7 +124,7 @@ class PostController extends Controller
     public function trending()
     {
         $trending = Redis::zrevrange('trending_posts', 0, 5);
-        $data = Post::with(['medias', 'user'])->find($trending);
+        $data = Post::with(['medias', 'user', 'category'])->find($trending);
 
         // Create an associative array for quick lookup
         $dataById = [];

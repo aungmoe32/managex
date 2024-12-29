@@ -8,6 +8,7 @@ use App\Utils\VideoStream;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\CreateMediaRequest;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -74,6 +75,11 @@ class MediaController extends Controller
 
         // Return the file as a response
         return response()->file($path);
+    }
+    // showing profile images
+    public function download($id, $filename)
+    {
+        return Storage::disk('s3')->download("/{$id}/{$filename}");
     }
     // showing profile images
     public function profile($id, $filename)

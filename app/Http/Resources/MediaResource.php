@@ -20,7 +20,8 @@ class MediaResource extends JsonResource
             'file_name' => $this->file_name,
             'size' => $this->size,
             'mime_type' => $this->mime_type,
-            'url' => $this->original_url
+            'url' => $this->original_url,
+            'download_url' => url("/api/download/{$this->id}/{$this->file_name}")
         ];
     }
 }

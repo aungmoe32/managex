@@ -17,3 +17,9 @@ Route::get('/profile-image/{id}/{filename}', [MediaController::class, 'profile']
     // 'verified'
     'signed'
 ])->name('profile.image');
+
+// Download medias from s3
+Route::get('/download/{id}/{filename}', [MediaController::class, 'download'])->middleware([
+    'auth:sanctum',
+    'verified'
+])->name('media.download');
