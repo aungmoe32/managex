@@ -74,4 +74,8 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->belongsToMany(Category::class);
     }
+    public function favourites(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'favourites');
+    }
 }

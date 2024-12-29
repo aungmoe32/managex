@@ -11,6 +11,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model implements HasMedia
 {
@@ -32,6 +33,10 @@ class Post extends Model implements HasMedia
     public function medias()
     {
         return $this->media()->where('collection_name', 'medias');
+    }
+    public function favoritedBy(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class,  'favourites');
     }
     protected static function booted(): void
     {

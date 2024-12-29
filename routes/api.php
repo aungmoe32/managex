@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -17,6 +16,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavouriteController;
 use Laravel\Fortify\Http\Controllers\PasswordController;
 use App\Http\Controllers\EmailVerificationNotificationController;
 use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, RegisteredUserController, PasswordResetLinkController, TwoFactorAuthenticationController, TwoFactorQrCodeController};
@@ -28,6 +29,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::patch('posts/{post}', [PostController::class, 'update']);
     Route::resource('posts.comments', CommentController::class)->shallow();
 
+    Route::post('/favourites/{post}', [FavouriteController::class, 'addToFavourites']);
+    Route::delete('/favourites/{post}', [FavouriteController::class, 'removeFromFavourites']);
+    Route::get('/favourites', [FavouriteController::class, 'getFavourites']);
 
     Route::apiResource('categories', CategoryController::class);
     // Route::apiResource('profiles', ProfileController::class);
