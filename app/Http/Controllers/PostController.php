@@ -17,6 +17,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\SubjectResource;
 use App\Mail\PostPosted;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 
@@ -82,11 +83,15 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = QueryBuilder::for(Post::class) // base query instead of model
-            ->allowedIncludes(['user'])
-            ->with(['category', 'medias'])
-            ->findOrFail($id); // we only need one specific user
+        $post = Cache::remember("posts:{$id}", 60 * 60, function () use ($id) {
+            $post = QueryBuilder::for(Post::class) // base query instead of model
+                ->allowedIncludes(['user'])
+                ->with(['category', 'medias'])
+                ->findOrFail($id); // we only need one specific user
+            return $post;
+        });
         Redis::zincrby('trending_posts', 1, $id);
+
         return PostResource::make($post);
     }
 
