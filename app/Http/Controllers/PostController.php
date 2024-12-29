@@ -18,6 +18,7 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\SubjectResource;
 use App\Mail\PostPosted;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redis;
 
 class PostController extends Controller
 {
@@ -85,6 +86,7 @@ class PostController extends Controller
             ->allowedIncludes(['user'])
             ->with(['category', 'medias'])
             ->findOrFail($id); // we only need one specific user
+        Redis::zincrby('trending_posts', 1, $id);
         return PostResource::make($post);
     }
 
@@ -113,5 +115,28 @@ class PostController extends Controller
             return $this->success('Post Deleted');
         }
         return $this->notAuthorized('Not authorized');
+    }
+
+
+    /**
+     * Get trending posts
+     */
+    public function trending()
+    {
+        $trending = Redis::zrevrange('trending_posts', 0, 5);
+        $data = Post::with(['medias', 'user'])->find($trending);
+
+        // Create an associative array for quick lookup
+        $dataById = [];
+        foreach ($data as $item) {
+            $dataById[$item['id']] = $item;
+        }
+
+        // Reorder the data based on the order array
+        $reorderedData = array_map(function ($id) use ($dataById) {
+            return $dataById[$id];
+        }, $trending);
+        // return $trending;
+        return PostResource::collection($reorderedData);
     }
 }

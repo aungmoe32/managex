@@ -22,6 +22,7 @@ use App\Http\Controllers\EmailVerificationNotificationController;
 use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, RegisteredUserController, PasswordResetLinkController, TwoFactorAuthenticationController, TwoFactorQrCodeController};
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('posts/trending', [PostController::class, 'trending']);
     Route::apiResource('posts', PostController::class)->except(['update']);
     Route::put('posts/{post}', [PostController::class, 'replace']);
     Route::patch('posts/{post}', [PostController::class, 'update']);
