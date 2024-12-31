@@ -31,6 +31,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('posts.comments', CommentController::class)->shallow();
 
     Route::post('/comments/{comment}/best', [BestCommentController::class, 'mark']);
+    Route::delete('/comments/{comment}/best', [BestCommentController::class, 'unmark']);
 
     Route::post('/favourites/{post}', [FavouriteController::class, 'addToFavourites']);
     Route::delete('/favourites/{post}', [FavouriteController::class, 'removeFromFavourites']);

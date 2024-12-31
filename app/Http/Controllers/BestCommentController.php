@@ -25,4 +25,16 @@ class BestCommentController extends Controller
         }
         return $this->notAuthorized();
     }
+
+    public function unmark(Comment $comment)
+    {
+        $user = auth()->user();
+        if ($user->can(Permissions::CRUDAnyComment)) {
+            $comment->update([
+                'best' => false
+            ]);
+            return $this->success('Unmarked');
+        }
+        return $this->notAuthorized();
+    }
 }
