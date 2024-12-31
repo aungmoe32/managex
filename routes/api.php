@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BestCommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -28,6 +29,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::put('posts/{post}', [PostController::class, 'replace']);
     Route::patch('posts/{post}', [PostController::class, 'update']);
     Route::resource('posts.comments', CommentController::class)->shallow();
+
+    Route::post('/comments/{comment}/best', [BestCommentController::class, 'mark']);
 
     Route::post('/favourites/{post}', [FavouriteController::class, 'addToFavourites']);
     Route::delete('/favourites/{post}', [FavouriteController::class, 'removeFromFavourites']);
