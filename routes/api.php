@@ -21,6 +21,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavouriteController;
 use Laravel\Fortify\Http\Controllers\PasswordController;
 use App\Http\Controllers\EmailVerificationNotificationController;
+use App\Http\Controllers\MetricController;
 use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, RegisteredUserController, PasswordResetLinkController, TwoFactorAuthenticationController, TwoFactorQrCodeController};
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -54,3 +55,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 require_once(__DIR__ . '/auth.php');
 require_once(__DIR__ . '/media_routes.php');
+require_once(__DIR__ . '/admin_routes.php');
