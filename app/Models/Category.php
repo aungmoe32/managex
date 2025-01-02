@@ -16,6 +16,7 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+    // Interested by users
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);

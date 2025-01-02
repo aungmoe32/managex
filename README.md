@@ -14,9 +14,13 @@ A CMS(Content management system) RESTful API.
     -   Spatie Query Builder
 -   **Database**
     -   MySQL, Postgres
+    -   Redis for caching
+    -   Minio (storing media files)
 -   **Development Tools**:
     -   Laravel Herd
+    -   DBngin
     -   Postman
+    -   Laravel Telescope
 
 ## Authentication Features
 
@@ -24,6 +28,7 @@ A CMS(Content management system) RESTful API.
 -   Email verification
 -   Password recovery
 -   Two-step verification
+-   Confirm password
 
 ## Features
 
@@ -33,6 +38,7 @@ A CMS(Content management system) RESTful API.
     -   Can CRUD (Create, Read, Update, Delete) their own posts, profiles, and comments.
 2.  **Admin**
     -   Can CRUD all posts, users, comments, and categories.
+    -   Get metrics of total users, total posts, total posts of categories, total comments, total media files.
 
 ### Resources
 
@@ -64,7 +70,23 @@ A CMS(Content management system) RESTful API.
 ### API Features
 
 -   Search, filter, sort, include, and paginate resources.
--   Secure media files and routes using middlewares.
+-   **Update Profile Image**: Allow users to update their profile pictures.
+-   **Add Posts to Favorites**: Enable users to bookmark posts for quick access.
+-   **Mark Best Comment**: Authors can mark a comment as the best, triggering an email notification to the commenter.
+-   **Get Trending Posts**: Retrieve a list of trending posts based on activity.
+-   **User Profile with Interests**: Profiles include categories of interest to personalize user experience.
+-   **Email Notifications for New Posts**: Notify users about new posts in their categories of interest, with queued emails for faster delivery.
+-   **Caching with Redis**: Cache trending posts, favorite post counts, and media download counts for efficient data retrieval.
+-   **Media Storage on S3 (Minio)**: Store media files securely on S3-compatible storage.
+-   **Video Media Streaming**: Stream video content directly from the platform.
+-   **Consistent JSON API Responses**: Ensure all API responses follow a uniform and structured JSON format.
+
+### Security Features
+
+-   **API Route Throttling**: Limit the number of requests to prevent abuse and ensure fair usage.
+-   **Middleware Protection**: Secure API endpoints with middleware for authentication, validation, and other safeguards.
+-   **Role-Based Access Control**: Enforce access control using roles, permissions, and policies to restrict unauthorized actions.
+-   **Protected Media Files**: Secure media access with temporary signed URLs from S3.
 
 ## Example Usage
 
