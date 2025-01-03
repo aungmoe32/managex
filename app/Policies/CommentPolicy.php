@@ -93,4 +93,15 @@ class CommentPolicy
     {
         //
     }
+    /**
+     * Determine whether the user can mark comment best.
+     */
+    public function markBest(User $user, Comment $comment): bool
+    {
+        return $user->id == $comment->post->user->id;
+    }
+    public function unMarkBest(User $user, Comment $comment): bool
+    {
+        return $user->id == $comment->post->user->id;
+    }
 }

@@ -15,7 +15,7 @@ class BestCommentController extends Controller
     public function mark(Comment $comment, MarkBestComment $action)
     {
         $user = auth()->user();
-        if ($user->can(Permissions::CRUDAnyComment)) {
+        if ($user->can('markBest', $comment)) {
             if ($comment->best) return $this->error(['Already marked']);
             $comment->update([
                 'best' => true
@@ -29,7 +29,7 @@ class BestCommentController extends Controller
     public function unmark(Comment $comment)
     {
         $user = auth()->user();
-        if ($user->can(Permissions::CRUDAnyComment)) {
+        if ($user->can('unMarkBest', $comment)) {
             $comment->update([
                 'best' => false
             ]);
