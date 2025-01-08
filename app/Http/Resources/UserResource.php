@@ -15,14 +15,12 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // return parent::toArray($request);
-        $profileMedia = $this->profile->getFirstMedia('profile');
         return [
             'id' => $this->id,
             'name' => $this->name,
             // 'email' => $this->email,
             'profile' => $this->whenLoaded('profile'),
-            'image_url' => $profileMedia ? $profileMedia->getUrl() : asset('/images/profile.png'),
+            'image_url' => $this->profile->getImageUrl(),
             'interested_categories' => CategoryResource::collection($this->whenLoaded('categories')),
         ];
     }

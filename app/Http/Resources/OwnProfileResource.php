@@ -14,9 +14,10 @@ class OwnProfileResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $profileMedia = $this->profile->getFirstMedia('profile');
         return [
             ...parent::toArray($request),
-            'image_url' => $this->profile->getFirstMedia('profile')->getUrl(),
+            'image_url' => $this->profile->getImageUrl(),
             'categories' => CategoryResource::collection($this->categories),
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
             'favourites' => PostResource::collection($this->whenLoaded('favourites'))

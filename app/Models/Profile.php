@@ -14,6 +14,8 @@ class Profile extends Model implements HasMedia
     use HasFactory;
     protected $fillable = ['bio'];
     protected $hidden = ['media'];
+    protected $collection = 'profile';
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -21,7 +23,13 @@ class Profile extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this
-            ->addMediaCollection('profile')
+            ->addMediaCollection($this->collection)
             ->singleFile();
+    }
+
+    public function getImageUrl()
+    {
+        $profileMedia = $this->getFirstMedia($this->collection);
+        return $profileMedia ? $profileMedia->getUrl() : asset('/images/profile.png');
     }
 }
