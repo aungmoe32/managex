@@ -17,9 +17,14 @@ use App\Http\Controllers\TeacherController;
 use Laravel\Fortify\Http\Controllers\PasswordController;
 use App\Http\Controllers\EmailVerificationNotificationController;
 use  Laravel\Fortify\Http\Controllers\{AuthenticatedSessionController, ConfirmedTwoFactorAuthenticationController, RegisteredUserController, PasswordResetLinkController, TwoFactorAuthenticationController, TwoFactorQrCodeController};
+use App\Http\Controllers\LoginController;
 
 // Retrieve the limiter configuration for login attempts
 $limiter = config('fortify.limiters.login');
+
+
+Route::get('auth/{provider}', [LoginController::class, 'redirectToProvider']);
+Route::get('auth/{provider}/callback', [LoginController::class, 'handleProviderCallback']);
 
 // Route for user login
 Route::post('/auth/login', [AuthenticatedSessionController::class, 'store'])

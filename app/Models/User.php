@@ -50,6 +50,14 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'password' => 'hashed',
     ];
 
+    /**
+     * @return HasMany
+     */
+    public function providers()
+    {
+        return $this->hasMany(Provider::class, 'user_id', 'id');
+    }
+
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
