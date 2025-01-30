@@ -12,6 +12,7 @@ A CMS(Content management system) RESTful API.
     -   Spatie Media
     -   Spatie Permissions
     -   Spatie Query Builder
+    -   Laravel Socialite
 -   **Database**
     -   MySQL, Postgres
     -   Redis for caching
@@ -29,6 +30,7 @@ A CMS(Content management system) RESTful API.
 -   Password recovery
 -   Two-step verification
 -   Confirm password
+-   Social Login OAuth (Github, Google, Facebook)
 
 ## Features
 

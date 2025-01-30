@@ -7,6 +7,11 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\JsonResponse;
 use Laravel\Socialite\Facades\Socialite;
 
+/**
+ * References
+ * https://bipinmhz.medium.com/sanctum-with-socialite-api-authentication-via-social-networks-in-laravel-8-624cb1737e8
+ */
+
 class LoginController extends Controller
 {
     /**
