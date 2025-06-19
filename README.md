@@ -15,9 +15,10 @@ ManageX is a powerful, feature-rich RESTful API for content management systems b
 -   [Configuration](#configuration)
 -   [Usage Examples](#usage-examples)
 -   [Authentication](#authentication)
+-   [Testing with Postman](#testing-with-postman)
+-   [API Documentation](#api-documentation)
 -   [Contributing](#contributing)
 -   [License](#license)
--   [Testing with Postman](#testing-with-postman)
 
 ## ✨ Features
 
@@ -335,14 +336,6 @@ Content-Type: application/json
 
 The response will include an authentication token to be used in subsequent requests.
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
 ## 🧪 Testing with Postman
 
 A comprehensive Postman collection is included in this repository to help you test all API endpoints. The collection file `ManageX.postman_collection.json` contains pre-configured requests for all available endpoints.
@@ -377,3 +370,47 @@ A comprehensive Postman collection is included in this repository to help you te
     - Admin (Metrics)
 
 The Postman collection is regularly updated to match the latest API endpoints and features.
+
+## 📚 API Documentation
+
+ManageX uses [Laravel Scramble](https://github.com/dedoc/scramble) to automatically generate comprehensive API documentation from your code.
+
+### Features
+
+-   **OpenAPI Specification**: Generates documentation following the OpenAPI 3.0 standard
+-   **Interactive UI**: Provides a Swagger UI interface for exploring and testing endpoints
+-   **Authentication Support**: Includes authentication methods in the documentation
+-   **Request/Response Examples**: Shows example requests and responses for each endpoint
+-   **Validation Rules**: Documents validation rules for request parameters
+
+### Accessing the Documentation
+
+Once the application is running, you can access the API documentation at:
+http://your-app-url/docs/api
+
+This interactive documentation allows you to:
+
+1. Browse all available endpoints
+2. See required parameters and response formats
+3. Test API calls directly from the browser
+4. Understand authentication requirements
+5. Download the OpenAPI specification for use in other tools
+
+### Customizing Documentation
+
+You can customize the Scramble configuration in the `config/scramble.php` file to:
+
+-   Add additional information about your API
+-   Configure security schemes
+-   Set up response examples
+-   Include or exclude specific routes
+
+The documentation is automatically updated whenever you make changes to your API endpoints, ensuring it always stays in sync with your code.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
