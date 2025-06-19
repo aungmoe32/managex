@@ -1,164 +1,379 @@
-# ManageX CMS
+# ManageX - Modern Content Management System API
 
-_(Still in development)_
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Laravel](https://img.shields.io/badge/Laravel-10.x-FF2D20.svg)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.1+-777BB4.svg)](https://php.net)
 
-A CMS(Content management system) RESTful API.
+ManageX is a powerful, feature-rich RESTful API for content management systems built with Laravel. It provides a comprehensive set of tools for managing posts, comments, users, media files, and more, with robust authentication, role-based access control, and advanced filtering capabilities.
 
-## Technologies
+## 📋 Table of Contents
 
--   **Laravel Packages**:
-    -   Sanctum
-    -   Fortify
-    -   Spatie Media
-    -   Spatie Permissions
-    -   Spatie Query Builder
-    -   Laravel Socialite
--   **Database**
-    -   MySQL, Postgres
-    -   Redis for caching
-    -   Minio (storing media files)
--   **Development Tools**:
-    -   Laravel Herd
-    -   DBngin
-    -   Postman
-    -   Laravel Telescope
+-   [Features](#features)
+-   [Tech Stack](#tech-stack)
+-   [API Endpoints](#api-endpoints)
+-   [Installation](#installation)
+-   [Configuration](#configuration)
+-   [Usage Examples](#usage-examples)
+-   [Authentication](#authentication)
+-   [Contributing](#contributing)
+-   [License](#license)
+-   [Testing with Postman](#testing-with-postman)
 
-## Authentication Features
+## ✨ Features
+
+### 🔐 Authentication
 
 -   Email/password authentication (register, login with token)
 -   Email verification
 -   Password recovery
--   Two-step verification
--   Confirm password
--   Social Login OAuth (Github, Google, Facebook)
+-   Two-factor authentication (2FA)
+-   Password confirmation
+-   Social login via OAuth (GitHub, Google, Facebook)
 
-## Features
+### 👥 Role-Based Access Control
 
-### Roles
+-   **User Role**
+    -   Create, read, update, and delete their own posts, profiles, and comments
+-   **Admin Role**
+    -   Manage all posts, users, comments, and categories
+    -   Access to system metrics and analytics
 
-1.  **User**
-    -   Can CRUD (Create, Read, Update, Delete) their own posts, profiles, and comments.
-2.  **Admin**
-    -   Can CRUD all posts, users, comments, and categories.
-    -   Get metrics of total users, total posts, total posts of categories, total comments, total media files.
+### 📝 Content Management
 
-### Resources
+-   **Posts**
+    -   Create, publish, update, and delete posts
+    -   Attach media files (images, videos, documents)
+    -   Categorize posts
+    -   Mark posts as favorites
+-   **Comments**
+    -   Add comments to posts
+    -   Mark comments as "best comment"
+    -   Email notifications for best comments
+-   **Categories**
+    -   Organize posts by categories
+    -   User interest tracking by category
 
-#### **Post**
+### 🔍 Advanced API Features
 
--   Attributes:
-    -   Title, body
-    -   Can belong to one user
-    -   Can be published or unpublished
--   Relationships:
-    -   Belongs to one **category**
-    -   Has many **comments**
-    -   Has many media files (photos, videos, documents)
+-   Comprehensive filtering, sorting, and pagination
+-   Resource inclusion for related data
+-   Full-text search capabilities
+-   Trending posts based on activity
+-   Personalized content based on user interests
 
-#### **Comment**
+### 🛡️ Security Features
 
--   Attributes:
-    -   Content
--   Relationships:
-    -   Belongs to one **user**
+-   API rate limiting and throttling
+-   Middleware protection layers
+-   Role-based access control
+-   Secure media access with signed URLs
 
-#### **Category**
+### 📊 Performance Optimizations
 
--   Attributes:
-    -   Name
--   Relationships:
-    -   Has many **posts**
+-   Redis caching for popular content
+-   Queued email notifications
+-   Efficient media file handling
 
-### API Features
+## 🛠️ Tech Stack
 
--   Search, filter, sort, include, and paginate resources.
--   **Update Profile Image**: Allow users to update their profile pictures.
--   **Add Posts to Favorites**: Enable users to bookmark posts for quick access.
--   **Mark Best Comment**: Authors can mark a comment as the best, triggering an email notification to the commenter.
--   **Get Trending Posts**: Retrieve a list of trending posts based on activity.
--   **User Profile with Interests**: Profiles include categories of interest to personalize user experience.
--   **Email Notifications for New Posts**: Notify users about new posts in their categories of interest, with queued emails for faster delivery.
--   **Caching with Redis**: Cache trending posts, favorite post counts, and media download counts for efficient data retrieval.
--   **Media Storage on S3 (Minio)**: Store media files securely on S3-compatible storage.
--   **Video Media Streaming**: Stream video content directly from the platform.
--   **Consistent JSON API Responses**: Ensure all API responses follow a uniform and structured JSON format.
+### Core Framework
 
-### Security Features
+-   [Laravel 10.x](https://laravel.com) - PHP Framework
 
--   **API Route Throttling**: Limit the number of requests to prevent abuse and ensure fair usage.
--   **Middleware Protection**: Secure API endpoints with middleware for authentication, validation, and other safeguards.
--   **Role-Based Access Control**: Enforce access control using roles, permissions, and policies to restrict unauthorized actions.
--   **Protected Media Files**: Secure media access with temporary signed URLs from S3.
+### Laravel Packages
 
-## Example Usage
+-   [Laravel Sanctum](https://laravel.com/docs/10.x/sanctum) - API authentication
+-   [Laravel Fortify](https://laravel.com/docs/10.x/fortify) - Frontend authentication
+-   [Spatie Media Library](https://github.com/spatie/laravel-medialibrary) - Media management
+-   [Spatie Permissions](https://github.com/spatie/laravel-permission) - Role-based permissions
+-   [Spatie Query Builder](https://github.com/spatie/laravel-query-builder) - API filtering
+-   [Laravel Socialite](https://laravel.com/docs/10.x/socialite) - OAuth authentication
+-   [Laravel Telescope](https://laravel.com/docs/10.x/telescope) - Debugging assistant
 
-### Filter API Example
+### Storage & Caching
 
-**Request**:
+-   MySQL/PostgreSQL - Primary database
+-   Redis - Caching layer
+-   Minio/S3 - Media file storage
 
-```http
-http://api-auth.test/api/posts?filter[publish]=1&filter[category.name]=nature&filter[user.id]=10&include=category,user
-```
+### Development Tools
 
-**Explanation**:  
-The above API request retrieves all posts that meet the following criteria:
+-   Laravel Herd - Local development environment
+-   DBngin - Database management
+-   Postman - API testing
 
-1.  **Publish status** is `1` (published).
-2.  **Category name** is `nature`.
-3.  **User ID** is `10`.
+## 🔌 API Endpoints
 
-Additionally, the response will include the details of the related `category` and `user` resources.
+### Authentication
 
-## Installation
+-   `POST /api/auth/register` - Register a new user
+-   `POST /api/auth/login` - Login and get token
+-   `POST /api/auth/logout` - Logout and invalidate token
+-   `POST /api/auth/forgot-password` - Request password reset
+-   `GET /api/auth/{provider}` - Redirect to OAuth provider
+-   `GET /api/auth/{provider}/callback` - Handle OAuth callback
 
-Follow these steps to set up the project:
+### Posts
 
-1.  Clone the repository:
+-   `GET /api/posts` - List all posts (with filtering)
+-   `GET /api/posts/trending` - Get trending posts
+-   `POST /api/posts` - Create a new post
+-   `GET /api/posts/{id}` - Get a specific post
+-   `PUT /api/posts/{id}` - Replace a post
+-   `PATCH /api/posts/{id}` - Update a post
+-   `DELETE /api/posts/{id}` - Delete a post
+
+### Comments
+
+-   `GET /api/posts/{post}/comments` - Get comments for a post
+-   `POST /api/posts/{post}/comments` - Add a comment to a post
+-   `POST /api/comments/{comment}/best` - Mark as best comment
+-   `DELETE /api/comments/{comment}/best` - Unmark as best comment
+
+### Favorites
+
+-   `POST /api/favourites/{post}` - Add post to favorites
+-   `DELETE /api/favourites/{post}` - Remove post from favorites
+-   `GET /api/favourites` - Get user's favorite posts
+
+### Media
+
+-   `POST /api/posts/{post}/medias` - Upload media to a post
+-   `DELETE /api/posts/{post}/medias/{media_id}` - Delete media from a post
+-   `GET /api/download/{id}/{filename}` - Download media file
+-   `GET /api/profile-image/{id}/{filename}` - Get profile image
+
+### User & Profile
+
+-   `GET /api/profile` - Get current user profile
+-   `POST /api/profile` - Update user profile
+-   `PUT /api/update-password` - Update password
+-   `PUT /api/update-email` - Update email
+
+### Admin
+
+-   `GET /api/metrics` - Get system metrics (admin only)
+
+## 🚀 Installation
+
+1. **Clone the repository**
 
     ```bash
-    git clone https://github.com/aungmoe32/api-auth.git
+    git clone https://github.com/aungmoe32/managex.git
+    cd managex
     ```
 
-2.  Switch to the `develop` branch:
-
-    ```bash
-    git checkout develop
-    ```
-
-3.  Install dependencies using Composer:
+2. **Install dependencies**
 
     ```bash
     composer install
     ```
 
-4.  Set up the environment file:
+3. **Set up environment variables**
 
-    -   Copy `.env.example` to `.env`:
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-        ```bash
-        cp .env.example .env
-        ```
+4. **Configure your database**
+   Edit the `.env` file and set your database credentials:
 
-    -   Fill in the **database** and **email** configuration fields in the `.env` file.
+    ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=managex
+    DB_USERNAME=your_username
+    DB_PASSWORD=your_password
+    ```
 
-5.  Run database migrations:
+5. **Run migrations and seed the database**
 
     ```bash
     php artisan migrate
-    ```
-
-6.  Seed the database:
-
-    ```bash
     php artisan db:seed
     ```
 
-7.  Start the development server:
+6. **Configure storage for media files**
 
+    ```bash
+    php artisan storage:link
+    ```
+
+7. **Start the development server**
     ```bash
     php artisan serve
     ```
 
-### License
+## ⚙️ Configuration
 
-This project is licensed under the MIT License – see the [LICENSE](./LICENSE) file for details.
+### Email Configuration
+
+Configure your email settings in the `.env` file:
+
+```
+MAIL_MAILER=smtp
+MAIL_HOST=your_mail_host
+MAIL_PORT=your_mail_port
+MAIL_USERNAME=your_username
+MAIL_PASSWORD=your_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=your_email@example.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+### S3/Minio Configuration
+
+For media file storage, configure S3 or Minio:
+
+```
+AWS_ACCESS_KEY_ID=your_access_key
+AWS_SECRET_ACCESS_KEY=your_secret_key
+AWS_DEFAULT_REGION=your_region
+AWS_BUCKET=your_bucket
+AWS_ENDPOINT=your_endpoint
+AWS_USE_PATH_STYLE_ENDPOINT=true
+```
+
+### Redis Configuration
+
+For caching, configure Redis:
+
+```
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+```
+
+### OAuth Configuration
+
+For social login, configure the providers:
+
+```
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+GITHUB_REDIRECT_URI=your_redirect_uri
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_REDIRECT_URI=your_redirect_uri
+
+FACEBOOK_CLIENT_ID=your_facebook_client_id
+FACEBOOK_CLIENT_SECRET=your_facebook_client_secret
+FACEBOOK_REDIRECT_URI=your_redirect_uri
+```
+
+## 📝 Usage Examples
+
+### Filtering API Example
+
+**Request**:
+
+```http
+GET /api/posts?filter[publish]=1&filter[category.name]=nature&filter[user.id]=10&include=category,user
+```
+
+This retrieves all published posts in the "nature" category by user ID 10, and includes the category and user details in the response.
+
+### Create a Post Example
+
+**Request**:
+
+```http
+POST /api/posts
+Content-Type: application/json
+Authorization: Bearer your_token
+
+{
+  "title": "My New Post",
+  "body": "This is the content of my post",
+  "category_id": 1,
+  "publish": true
+}
+```
+
+### Upload Media Example
+
+**Request**:
+
+```http
+POST /api/posts/1/medias
+Content-Type: multipart/form-data
+Authorization: Bearer your_token
+
+file: [binary file data]
+```
+
+## 🔐 Authentication
+
+### Register a New User
+
+```http
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "secure_password",
+  "password_confirmation": "secure_password"
+}
+```
+
+### Login
+
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "secure_password"
+}
+```
+
+The response will include an authentication token to be used in subsequent requests.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## 🧪 Testing with Postman
+
+A comprehensive Postman collection is included in this repository to help you test all API endpoints. The collection file `ManageX.postman_collection.json` contains pre-configured requests for all available endpoints.
+
+### Using the Postman Collection
+
+1. **Import the Collection**
+
+    - Open Postman
+    - Click "Import" button
+    - Select the `ManageX.postman_collection.json` file from the project root
+
+2. **Configure Environment Variables**
+
+    - Create a new environment in Postman
+    - Add the following variables:
+        - `base_url`: Your API base URL (e.g., `http://localhost:8000/api`)
+        - `token`: Your authentication token (will be set automatically after login)
+
+3. **Authentication Flow**
+
+    - Use the "Register" or "Login" request first to get an authentication token
+    - The collection includes pre-request scripts that will automatically set the token for subsequent requests
+
+4. **Available Request Groups**
+    - Authentication (Register, Login, Logout, Password Reset)
+    - Posts (List, Create, Update, Delete)
+    - Comments (List, Create, Mark as Best)
+    - Categories (List, Create, Update, Delete)
+    - Media (Upload, Download)
+    - User Profile (View, Update)
+    - Admin (Metrics)
+
+The Postman collection is regularly updated to match the latest API endpoints and features.
