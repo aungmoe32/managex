@@ -6,6 +6,9 @@
 
 ManageX is a powerful, feature-rich RESTful API for content management systems built with Laravel. It provides a comprehensive set of tools for managing posts, comments, users, media files, and more, with robust authentication, role-based access control, and advanced filtering capabilities.
 
+You can also explore the live demo of the API documentation at:
+[https://managex-swagger-ui.vercel.app/](https://managex-swagger-ui.vercel.app/)
+
 ## 📋 Table of Contents
 
 -   [Features](#features)
@@ -386,7 +389,7 @@ ManageX uses [Laravel Scramble](https://github.com/dedoc/scramble) to automatica
 ### Accessing the Documentation
 
 Once the application is running, you can access the API documentation at:
-http://your-app-url/docs/api
+http://localhost:8000/docs/api
 
 This interactive documentation allows you to:
 
