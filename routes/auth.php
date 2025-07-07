@@ -29,7 +29,7 @@ Route::get('auth/{provider}/callback', [LoginController::class, 'handleProviderC
 // Route for user login
 Route::post('/auth/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware(array_filter([
-        'web',
+        // 'web',
         'guest:' . config('fortify.guard'),  // Only guests (non-authenticated users) are allowed
         $limiter ? 'throttle:' . $limiter : null,  // Throttle login attempts if limiter is configured
     ]));

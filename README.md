@@ -13,6 +13,7 @@ You can also explore the live demo of the API documentation at:
 
 -   [Features](#features)
 -   [Tech Stack](#tech-stack)
+-   [Technical Implementation](#technical-implementation)
 -   [API Endpoints](#api-endpoints)
 -   [Installation](#installation)
 -   [Configuration](#configuration)
@@ -105,6 +106,24 @@ You can also explore the live demo of the API documentation at:
 -   Laravel Herd - Local development environment
 -   DBngin - Database management
 -   Postman - API testing
+
+## 🏗️ Technical Implementation
+
+For developers who want to understand the technical details of how ManageX is built, we provide a comprehensive implementation guide. This document covers:
+
+-   Architecture overview and design patterns
+-   Database schema and relationships
+-   Authentication implementation details
+-   Content management workflows
+-   API request flow and filtering
+-   Caching strategies
+-   Background processing with queues
+-   Security implementations
+-   Testing strategies
+-   Metrics and monitoring
+-   Deployment considerations
+
+For the complete technical documentation, see [IMPLEMENTATION.md](./IMPLEMENTATION.md).
 
 ## 🔌 API Endpoints
 
