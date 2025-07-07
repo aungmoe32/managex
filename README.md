@@ -9,8 +9,16 @@ ManageX is a powerful, feature-rich RESTful API for content management systems b
 You can also explore the live demo of the API documentation at:
 [https://managex-swagger-ui.vercel.app/](https://managex-swagger-ui.vercel.app/)
 
+## 🌐 Live Demo
+
+You can explore a live demo of ManageX at:
+[https://managex-main-lunwyu.laravel.cloud/](https://managex-main-lunwyu.laravel.cloud/)
+
+This demo instance showcases the full functionality of ManageX in a production environment. Feel free to explore the features, API endpoints, and documentation.
+
 ## 📋 Table of Contents
 
+-   [Live Demo](#live-demo)
 -   [Features](#features)
 -   [Tech Stack](#tech-stack)
 -   [Technical Implementation](#technical-implementation)
