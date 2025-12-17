@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://managex.test/api"
+      "url": "https://managex-main-lunwyu.laravel.cloud/api"
     }
   ],
   "paths": {
