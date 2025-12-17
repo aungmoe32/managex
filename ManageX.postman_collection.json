@@ -4,7 +4,8 @@
 		"name": "ManageX",
 		"description": "# ⛓️ **Building a Laravel API: Collection Guide (Phase 2)**\n\nWelcome to the first phase of our comprehensive guide on building a Laravel API using Postman collections! In this phase, we focus on essential authentication and user management endpoints. Follow along as we explore step-by-step instructions and examples for:\n\n1. **User Registration:**  \n    Learn how to create a seamless user registration process. The Postman collection provides clear requests to your Laravel API, demonstrating the required inputs and expected responses.\n    \n2. **User Login:**  \n    Dive into secure user authentication with the login endpoint. Understand the necessary parameters and how to handle authentication tokens for subsequent requests.\n    \n3. **Forgot Password:**  \n    Explore the forgot password feature, allowing users to reset their passwords. Follow the collection to simulate the user journey through password reset requests.\n    \n4. **Resend Verification Link:**  \n    Ensure smooth user onboarding by implementing email verification. The collection demonstrates how to resend verification links for users who may have missed or lost their initial email.\n    \n5. **Get User Information:**  \n    Learn how to retrieve user details using the get user endpoint. Understand the authentication requirements and the information available in the response.\n    \n6. **Update Profile Information:**  \n    Discover how to update user profile information through the designated API endpoint.\n    \n7. **Update Profile Photo:**  \n    Explore the process of updating a user's profile photo with the corresponding API request.\n    \n8. **Remove Profile Photo:**  \n    Understand the steps to remove a user's profile photo using the provided API endpoint.\n    \n9. **Update Password:**  \n    Learn how to implement password updates securely with the API's update password endpoint.\n    \n10. **Logout:**  \n    Explore the logout functionality and understand the required steps for user logout using the dedicated API endpoint.\n    \n\nWith this Postman collection guide, you'll gain hands-on experience in testing and validating these crucial authentication and user management functionalities in your Laravel API. Stay tuned for the subsequent phases, where we'll expand our API capabilities and enhance the user experience.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "39561853"
+		"_exporter_id": "39561853",
+		"_collection_link": "https://www.postman.com/lunar-module-physicist-24945643/workspace/managex/collection/39561853-542b1145-7737-48e2-a0b1-37519ffa5c82?action=share&source=collection_link&creator=39561853"
 	},
 	"item": [
 		{
@@ -17,7 +18,10 @@
 							"name": "Enable",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": [
 								{
@@ -105,7 +109,10 @@
 							"name": "Qr",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": [
 								{
@@ -187,7 +194,10 @@
 							"name": "2FA Challenge",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": [
 								{
@@ -414,7 +424,10 @@
 							"name": "Disable",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": [
 								{
@@ -904,7 +917,8 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -914,7 +928,8 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -948,7 +963,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"_token\": \"Fo8buZMh63IIRpvG5OGNcRveQizn8siT9oQisJAX\",\n    \"email\": \"joker@gmail.com\",\n    \"password\": \"password1\"\n}",
+							"raw": "{\n    \"_token\": \"hOlPXHmgCscUm5uM3RcUoQvmjrgW52OkWmZ11DEX\",\n    \"email\": \"newuser@example.com\",\n    \"password\": \"password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1498,7 +1513,8 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -1508,7 +1524,8 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1518,7 +1535,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|mXwmbtl3zJ7jKlmB30hC3iRtrlpZizXt87DSTbenc57ed841",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -1731,7 +1748,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|b8JjXc5TfVmdBNRvySA1MAy5AhX6BRpxpfYySwps4e7fa61",
+									"value": "{{vault:authorization-secret}}",
 									"type": "string"
 								}
 							]
@@ -1910,7 +1927,10 @@
 					"name": "Roles and Permissions",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -1918,15 +1938,98 @@
 					"name": "CSRF",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "https://managex-main-lunwyu.laravel.cloud/token",
+							"protocol": "https",
+							"host": [
+								"managex-main-lunwyu",
+								"laravel",
+								"cloud"
+							],
+							"path": [
+								"token"
+							]
+						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "CSRF",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/token",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.25.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.27"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 06 Jul 2025 14:33:05 GMT"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "XSRF-TOKEN=eyJpdiI6IlZPaThacHo0TFVJazdyeEZIS3ozMmc9PSIsInZhbHVlIjoiRGJpcDcwNXB2Si9GT1c4V3RGQ0pneVlhay9ycXRzYVhsVWJ2TDBMS3dyU2RlaTF3L3BkSHd3VThyTG9KeDV0ZFpPOGZRejBBUWcraU5xUE5OWTIxMGgwQURXYnRXQWIzTktsL3NKSFNucTc5N0h0cGJSVlNIS3JYa3NKdm5ESGMiLCJtYWMiOiIzMGMyYjE2ZWVjOWY3MjM3ZTkzYTkyZTI5ZDg2Y2ZjYTMwMTUzMzY5MTdkYzlkNmM4YTcyN2NjZGE3MGQ0YjZkIiwidGFnIjoiIn0%3D; expires=Sun, 06 Jul 2025 16:33:05 GMT; Max-Age=7200; path=/; samesite=lax"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "laravel_session=eyJpdiI6IjhtbUREVzZlWnRDMVBsQXBxVTZXL2c9PSIsInZhbHVlIjoiaVBvS1hSZ2dGMmVWYU9UK1JPdWIwVVUrSXFpeCtEK1RwMy9ENVhXdUw2SFFOVjhYdnMyRXFsTWVmcmtoOTFpZ3c5TGM3cHZxZlF3U3pwdnNHblJzSkxRL0F2TEhpZzgreGhMZFpWd2JWY1hmMjZPeXlObWRQVm5NMEYxOVRudVAiLCJtYWMiOiI0ZDhiYzc5OTQ3OTA2M2YwOGNjMTZmYzM3ZTNkODZkMTc2ZjkwNTJlZTRlMDFjZjdjZmNlZDYxYWZiZDdhOWNmIiwidGFnIjoiIn0%3D; expires=Sun, 06 Jul 2025 16:33:05 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "K5bt9WisiZav0HHExEFz3boBbgqS7ZqSZ7j9zkF8"
+						}
+					]
 				},
 				{
 					"name": "Login As Admin",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -1951,7 +2054,8 @@
 									"})",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
@@ -1960,7 +2064,8 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1979,12 +2084,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/user",
+							"raw": "{{base_url}}/profile",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"user"
+								"profile"
 							]
 						},
 						"description": "This will fetch user data"
@@ -3280,7 +3385,10 @@
 					"name": "Change Email",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -3375,15 +3483,10 @@
 					"name": "View Profile Image",
 					"request": {
 						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -3391,7 +3494,10 @@
 					"name": "stats",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -3427,7 +3533,10 @@
 							"name": "Add",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": [
 								{
@@ -3508,7 +3617,10 @@
 							"name": "Remove",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": [
 								{
@@ -3589,7 +3701,10 @@
 							"name": "Get",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": [
 								{
@@ -4294,7 +4409,10 @@
 					"name": "create",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -4645,7 +4763,10 @@
 					"name": "update",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -4816,7 +4937,10 @@
 					"name": "delete",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -4824,7 +4948,10 @@
 					"name": "Trending",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -4932,7 +5059,10 @@
 					"name": "Attach media to post",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -5208,7 +5338,10 @@
 					"name": "Delete",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -5439,7 +5572,10 @@
 					"name": "View File",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -5452,7 +5588,10 @@
 					"name": "New Request",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -5468,7 +5607,10 @@
 							"name": "Mark",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": [
 								{
@@ -5623,7 +5765,10 @@
 							"name": "Unmark",
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": ""
+								}
 							},
 							"response": [
 								{
@@ -5707,7 +5852,10 @@
 					"name": "Create",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -5882,7 +6030,10 @@
 					"name": "Read",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -6329,7 +6480,10 @@
 					"name": "Delete",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -6487,7 +6641,10 @@
 					"name": "Create",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -6658,7 +6815,10 @@
 					"name": "Read",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -6826,7 +6986,10 @@
 					"name": "Update",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -7011,7 +7174,10 @@
 					"name": "Delete",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -7097,7 +7263,10 @@
 					"name": "View Other Profile",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -7183,7 +7352,10 @@
 					"name": "Metrics",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": [
 						{
@@ -7462,7 +7634,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "38|s8pDkfn5adalw53lSBMyGNqZYt44Bkt7NzmUrXIVe7429c90",
+				"value": "{{token}}",
 				"type": "string"
 			}
 		]
@@ -7472,6 +7644,7 @@
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
+				"requests": {},
 				"exec": [
 					""
 				]
@@ -7481,6 +7654,7 @@
 			"listen": "test",
 			"script": {
 				"type": "text/javascript",
+				"requests": {},
 				"exec": [
 					""
 				]
@@ -7490,7 +7664,7 @@
 	"variable": [
 		{
 			"key": "token",
-			"value": ""
+			"value": "1|lXtwlrbofA4ZLK8EHBp8WHkLxbFpHRpT2I6fH7mua34d8897"
 		},
 		{
 			"key": "base_url",
@@ -7499,8 +7673,12 @@
 		},
 		{
 			"key": "base_url",
-			"value": "http://api-auth.test/api",
-			"type": "default"
+			"value": "https://managex-main-lunwyu.laravel.cloud/api"
+		},
+		{
+			"key": "base_url",
+			"value": "http://managex.test/api",
+			"disabled": true
 		}
 	]
 }
