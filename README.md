@@ -1,12 +1,9 @@
-# ManageX - Modern Content Management System API
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Laravel](https://img.shields.io/badge/Laravel-10.x-FF2D20.svg)](https://laravel.com)
-[![PHP](https://img.shields.io/badge/PHP-8.1+-777BB4.svg)](https://php.net)
+# ManageX - Modern Content Management System API
 
 ManageX is a powerful, feature-rich RESTful API for content management systems built with Laravel. It provides a comprehensive set of tools for managing posts, comments, users, media files, and more, with robust authentication, role-based access control, and advanced filtering capabilities.
 
-## 🌐 Live Demo
+##  Live Demo
 
 -   Swagger UI : [https://managex-swagger-ui.vercel.app/](https://managex-swagger-ui.vercel.app/)
 
@@ -16,7 +13,7 @@ ManageX is a powerful, feature-rich RESTful API for content management systems b
 
 This demo instance showcases the full functionality of ManageX in a production environment. Feel free to explore the features, API endpoints, and documentation.
 
-## 📋 Table of Contents
+##  Table of Contents
 
 -   [Live Demo](#live-demo)
 -   [Features](#features)
@@ -32,9 +29,9 @@ This demo instance showcases the full functionality of ManageX in a production e
 -   [Contributing](#contributing)
 -   [License](#license)
 
-## ✨ Features
+##  Features
 
-### 🔐 Authentication
+###  Authentication
 
 -   Email/password authentication (register, login with token)
 -   Email verification
@@ -43,7 +40,7 @@ This demo instance showcases the full functionality of ManageX in a production e
 -   Password confirmation
 -   Social login via OAuth (GitHub, Google, Facebook)
 
-### 👥 Role-Based Access Control
+###  Role-Based Access Control
 
 -   **User Role**
     -   Create, read, update, and delete their own posts, profiles, and comments
@@ -51,7 +48,7 @@ This demo instance showcases the full functionality of ManageX in a production e
     -   Manage all posts, users, comments, and categories
     -   Access to system metrics and analytics
 
-### 📝 Content Management
+###  Content Management
 
 -   **Posts**
     -   Create, publish, update, and delete posts
@@ -66,7 +63,7 @@ This demo instance showcases the full functionality of ManageX in a production e
     -   Organize posts by categories
     -   User interest tracking by category
 
-### 🔍 Advanced API Features
+###  Advanced API Features
 
 -   Comprehensive filtering, sorting, and pagination
 -   Resource inclusion for related data
@@ -74,20 +71,20 @@ This demo instance showcases the full functionality of ManageX in a production e
 -   Trending posts based on activity
 -   Personalized content based on user interests
 
-### 🛡️ Security Features
+###  Security Features
 
 -   API rate limiting and throttling
 -   Middleware protection layers
 -   Role-based access control
 -   Secure media access with signed URLs
 
-### 📊 Performance Optimizations
+###  Performance Optimizations
 
 -   Redis caching for popular content
 -   Queued email notifications
 -   Efficient media file handling
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Core Framework
 
@@ -115,7 +112,7 @@ This demo instance showcases the full functionality of ManageX in a production e
 -   DBngin - Database management
 -   Postman - API testing
 
-## 🏗️ Technical Implementation
+##  Technical Implementation
 
 For developers who want to understand the technical details of how ManageX is built, we provide a comprehensive implementation guide. This document covers:
 
@@ -133,7 +130,7 @@ For developers who want to understand the technical details of how ManageX is bu
 
 For the complete technical documentation, see [IMPLEMENTATION.md](./IMPLEMENTATION.md).
 
-## 🔌 API Endpoints
+##  API Endpoints
 
 ### Authentication
 
@@ -185,7 +182,7 @@ For the complete technical documentation, see [IMPLEMENTATION.md](./IMPLEMENTATI
 
 -   `GET /api/metrics` - Get system metrics (admin only)
 
-## 🚀 Installation
+##  Installation
 
 1. **Clone the repository**
 
@@ -237,7 +234,7 @@ For the complete technical documentation, see [IMPLEMENTATION.md](./IMPLEMENTATI
     php artisan serve
     ```
 
-## ⚙️ Configuration
+##  Configuration
 
 ### Email Configuration
 
@@ -295,7 +292,7 @@ FACEBOOK_CLIENT_SECRET=your_facebook_client_secret
 FACEBOOK_REDIRECT_URI=your_redirect_uri
 ```
 
-## 📝 Usage Examples
+##  Usage Examples
 
 ### Filtering API Example
 
@@ -336,7 +333,7 @@ Authorization: Bearer your_token
 file: [binary file data]
 ```
 
-## 🔐 Authentication
+##  Authentication
 
 ### Register a New User
 
@@ -366,7 +363,7 @@ Content-Type: application/json
 
 The response will include an authentication token to be used in subsequent requests.
 
-## 🧪 Testing with Postman
+##  Testing with Postman
 
 A comprehensive Postman collection is included in this repository to help you test all API endpoints. The collection file `ManageX.postman_collection.json` contains pre-configured requests for all available endpoints.
 
@@ -401,7 +398,7 @@ A comprehensive Postman collection is included in this repository to help you te
 
 The Postman collection is regularly updated to match the latest API endpoints and features.
 
-## 📚 API Documentation
+##  API Documentation
 
 ManageX uses [Laravel Scramble](https://github.com/dedoc/scramble) to automatically generate comprehensive API documentation from your code.
 
@@ -437,10 +434,10 @@ You can customize the Scramble configuration in the `config/scramble.php` file t
 
 The documentation is automatically updated whenever you make changes to your API endpoints, ensuring it always stays in sync with your code.
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
